@@ -1,0 +1,443 @@
+/* === COLORS I VARIABLES === */
+:root {
+  --groc: #FFD700;
+  --blau: #003366;
+  --blanc: #ffffff;
+  --negre: #111;
+  --ombra: rgba(0, 0, 0, 0.15);
+  --accent: #007BFF;
+}
+
+/* === FONS GENERAL AMB DEGRADAT TACA === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at 20% 30%, #ffe066 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, #a1c4fd 0%, transparent 50%),
+              linear-gradient(to bottom, #f0f4ff, #fef9e7);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: var(--negre);
+  scroll-behavior: smooth;
+}
+
+/* === ENCAVALADURA === */
+.logo {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: var(--blau);
+  color: var(--groc);
+}
+
+.logo .logo {
+  height: 100px;
+  margin-bottom: 1rem;
+}
+
+.logo h1 {
+  font-size: 2.4rem;
+  margin: 0;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
+}
+
+.logo img {
+  cursor: default; /* o 'auto' si ho prefereixes */
+  pointer-events: auto; /* manté clicabilitat */
+  user-select: none;
+}
+
+.logo img:hover {
+  filter: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+
+/* === CONTENIDOR GENERAL === */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
+  gap: 0.5rem;
+  grid-template-areas:
+    "bloc1 contacte"
+    "bloc2 galeria"
+    "bloc3 galeria"
+    "bloc4 galeria"
+    "bloc5 galeria"
+    "bloc6 galeria";
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bloc1 { grid-area: bloc1; max-width: 100px;}
+.bloc2 { grid-area: bloc2; max-width: 200px; }
+.bloc3 { grid-area: bloc3; max-width: 200px; }
+.bloc4 { grid-area: bloc4; max-width: 200px; }
+.bloc5 { grid-area: contacte; max-width: 200px; }
+.bloc6 { grid-area: bloc6; max-width: 200px;}
+.galeria {
+  grid-area: galeria;
+  max-width: 100px;
+  width: 100%;
+}
+
+
+/* === BLOCS DE CONTINGUT === */
+.bloc {
+  background: var(--blanc);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--ombra);
+  padding: 2rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.bloc:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--ombra);
+}
+
+.bloc h2 {
+  color: var(--blau);
+  margin-top: 0;
+}
+
+.bloc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.bloc a:hover {
+  text-decoration: underline;
+}
+
+/* === Fotos === */
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px var(--ombra);
+}
+
+.slider-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-inner img {
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-size: 2rem;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.slider-btn:hover {
+  opacity: 1;
+}
+
+.slider-btn.prev {
+  left: 10px;
+}
+.slider-btn.next {
+  right: 10px;
+}
+
+/* === MAPA === */
+.mapa {
+  width: 100%;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+/* === BOTONS DE GALERIA === */
+.boto-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.boto-galeria button {
+  padding: 0.8rem 1.2rem;
+  background: var(--groc);
+  color: var(--blau);
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--ombra);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.boto-galeria button:hover {
+  background: #ffe600;
+  transform: scale(1.05);
+}
+
+.boto-galeria h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--blau);
+  border-bottom: 1px solid var(--ombra);
+  padding-bottom: 0.3rem;
+}
+
+.acordio-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.acordio {
+  border: 1px solid var(--ombra);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px var(--ombra);
+}
+
+.acordio-titol {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.acordio-titol:hover {
+  background: #002244;
+}
+
+.acordio-contingut {
+  padding: 0.8rem 1rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
+}
+
+.acordio-contingut button {
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  background: var(--groc);
+  color: var(--blau);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.acordio-contingut button:hover {
+  background: #ffe600;
+}
+
+.acordio-titol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
+  padding: 0 1rem;
+}
+
+.acordio.open .acordio-contingut {
+  max-height: 500px; /* o el màxim esperat */
+  padding: 0.8rem 1rem;
+}
+
+.fletxa {
+  transition: transform 0.4s ease;
+}
+
+.acordio.open .fletxa {
+  transform: rotate(180deg);
+}
+
+
+/* === MODAL DE CONTRASENYA === */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: var(--blanc);
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.modal-content input {
+  padding: 0.8rem;
+  width: 80%;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+
+.modal-buttons {
+  margin-top: 1.5rem;
+}
+
+.modal-buttons button {
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--blau);
+  color: var(--blanc);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background: #001f3f;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  background: var(--blau);
+  color: var(--groc);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  margin-top: 3rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .bloc {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .main-header .logo {
+    height: 80px;
+  }
+
+  .main-header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* === ANIMACIÓ ENTRADA === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === ADMIN === */
+.editor {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--blanc);
+  border: 1px solid var(--ombra);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--ombra);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-width: 280px;
+}
+
+.editor input {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.editor button {
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.editor button:hover {
+  background: #001f3f;
+}
+
+.ocult {
+  display: none !important;
+}
+
+
+  

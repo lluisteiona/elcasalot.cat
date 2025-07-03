@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esplai El Casalot</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/galeria.js"></script>
+</head>
+<body>
+
+  <!-- Capçalera -->
+  <header class="logo">
+    <img src="assets/logo.png" alt="Logo Casalot" class="logo" />
+    <h1>Esplai El Casalot</h1>
+  </header>
+
+  <main class="container">
+
+    <!-- Qui som -->
+    <section id="qui-som" class="bloc bloc1">
+      <h2>Qui som?</h2>
+      <p>El Casalot és un <strong>esplai laic i inclusiu d’educació en el lleure</strong> on infants, monitores i monitors comparteixen una educació en valors, crítica i lliure. És un lloc on els infants poden desconnectar de la rutina diària i gaudir d’un temps de trobada enriquidor. A través<strong> d’activitats diverses i dinàmiques</strong>, promovem la reflexió sobre temes importants, tot fomentant valors com la cooperació, la convivència i el respecte, sempre des d’una perspectiva lúdica i divertida.</p>
+    </section>
+
+    <!-- On som -->
+    <section id="on-som" class="bloc bloc2">
+      <h2>On som?</h2>
+      <img src="assets/mapa.png" alt="Mapa ubicació" class="mapa" />
+      <p><a href="https://www.google.es/maps/place/Esplai+El+Casalot/@41.9802206,2.3085711,236m/data=!3m2!1e3!5s0x12a52f53c39d1ca7:0xdc584534014b1da!4m6!3m5!1s0x12a52f0e4f4496eb:0xc93ccc031614850e!8m2!3d41.9799582!4d2.3088258!16s%2Fg%2F11h9ktwd0y?hl=ca&entry=ttu&g_ep=EgoyMDI1MDYyMy4yIKXMDSoASAFQAw%3D%3D" target="_blank">Veure al Google Maps</a></p>
+    </section>
+
+    <!-- Què fem -->
+    <section id="que-fem" class="bloc bloc3">
+      <h2>Què fem?</h2>
+      <p>Organitzem activitats cada dissabte a la tarda, colònies, campaments i projectes per fomentar el creixement personal i col·lectiu dels infants i joves.</p>
+      <div class="slider" id="slider-que-fem">
+        <div class="slider-inner"></div>
+        <button class="slider-btn prev">&#10094;</button>
+        <button class="slider-btn next">&#10095;</button>
+      </div>
+
+    </section>
+
+    <!-- Esplac -->
+    <section id="esplac" class="bloc bloc4">
+      <h2>Esplac</h2>
+      <p>Formem part d'<a href="https://esplac.cat" target="_blank">Esplac</a>, una associació d'esplais laics i progressistes que treballa en xarxa arreu del territori català.</p>
+    </section>
+
+    <!-- Contacte -->
+    <section id="contacte" class="bloc bloc5">
+      <h2>Contacte</h2>
+      <p>Envia'ns un correu a <a href="mailto:esplaielcasalot@gmail.com">esplaielcasalot@gmail.com</a></p>
+      <p>També, si tens qualsevol dubte ens pots escriure a l'instagram <a href="https://www.instagram.com/esplaielcasalot/" target="_blank">@esplaielcasalot</a> </a></p>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria" class="bloc galeria">
+      <h2>Galeria</h2>
+
+      <div class="acordio-galeria">
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2024–2025</span>
+            <span class="fletxa">▼</span>
+          </button>
+
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('Dormida2025')">Dormida 2025</button>
+            <button onclick="requestAccess('ColoniesPrimavera2025')">Colònies Primavera 2025</button>
+            <button onclick="requestAccess('ColoniesTardor2024')">Colònies Tardor 2024</button>
+          </div>
+        </div>
+
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2023–2024</span>
+            <span class="fletxa">▼</span>
+          </button>
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('campaments2024')">Campaments 2024</button>
+            <button onclick="requestAccess('Dormida2024')">Dormida 2024</button>
+            <button onclick="requestAccess('ColoniesPrimavera2024')">Colònies Primavera 2024</button>
+            <button onclick="requestAccess('ColoniesTardor2023')">Colònies Tardor 2023</button>
+          </div>
+        </div>
+
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2022–2023</span>
+            <span class="fletxa">▼</span>
+          </button>
+
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('campaments2023')">Campaments 2023</button>
+            <button onclick="requestAccess('Dormida2023')">Dormida 2023</button>
+            <button onclick="requestAccess('ColoniesPrimavera2023')">Colònies Primavera 2023</button>
+            <button onclick="requestAccess('ColoniesTardor2022')">Colònies Tardor 2022</button>
+          </div>
+        </div>
+
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2021–2022</span>
+            <span class="fletxa">▼</span>
+          </button>
+
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('campaments2022')">Campaments 2022</button>
+          </div>
+        </div>
+
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2020–2021</span>
+            <span class="fletxa">▼</span>
+          </button>
+
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('campaments2021')">Campaments 2023</button>
+            <button onclick="requestAccess('Dormida2021')">Dormida 2023</button>
+            <button onclick="requestAccess('ColoniesPrimavera2020')">Colònies Primavera 2023</button>
+            <button onclick="requestAccess('ColoniesTardor2020')">Colònies Tardor 2022</button>
+          </div>
+        </div>
+        <div class="acordio">
+          <button class="acordio-titol">
+            <span>Curs 2019–2020</span>
+            <span class="fletxa">▼</span>
+          </button>
+
+          <div class="acordio-contingut">
+            <button onclick="requestAccess('campaments2021')">Campaments 2023</button>
+            <button onclick="requestAccess('Dormida2021')">Dormida 2023</button>
+            <button onclick="requestAccess('ColoniesPrimavera2020')">Colònies Primavera 2023</button>
+            <button onclick="requestAccess('ColoniesTardor2020')">Colònies Tardor 2022</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- Instagram -->
+    <section id="instagram" class="bloc bloc6">
+      <h2>Segueix-nos a Instagram</h2>
+      <p><a href="https://www.instagram.com/esplaielcasalot/" target="_blank">@esplaielcasalot</a> <!-- Enllaç pendent d'afegir --></p>
+
+    </section>
+
+  </main>
+
+  <!-- Modal per contrasenya de galeria -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h3>Accés a la galeria</h3>
+      <input type="password" id="passwordInput" placeholder="Contrasenya" />
+      <div class="modal-buttons">
+        <button onclick="validatePassword()">Entrar</button>
+        <button onclick="closeModal()">Cancel·lar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Esplai El Casalot · Tots els drets reservats
+  </footer>
+
+  <div id="adminPanel" class="modal">
+    <div class="modal-content">
+      <h3>Accés administració</h3>
+      <input type="password" id="adminInput" placeholder="Contrasenya" />
+      <div class="modal-buttons">
+        <button onclick="validateAdmin()">Entrar</button>
+        <button onclick="closeAdmin()">Cancel·lar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="editorGal" class="editor ocult">
+    <h3>Afegir nova entrada a la galeria</h3>
+    <input type="text" id="nomSeccio" placeholder="Ex: Campaments" />
+    <input type="text" id="anySeccio" placeholder="Ex: 2025" />
+    <input type="text" id="linkSeccio" placeholder="Enllaç Google Fotos" />
+    <button onclick="afegirNovaEntrada()">Afegir a la galeria</button>
+  </div>
+
+</body>
+</html>
