@@ -366,34 +366,31 @@ footer {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .container {
+    display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 1rem;
+    gap: 1rem;
   }
 
   .bloc {
     width: 100%;
-    max-width: 90%;
+    max-width: 100%;
   }
 
-  .main-header .logo {
+  .logo .logo {
     height: 80px;
   }
 
-  .main-header h1 {
+  .logo h1 {
     font-size: 1.8rem;
   }
-}
 
-/* === ANIMACIÓ ENTRADA === */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
+  .slider {
+    max-width: 100%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .acordio-contingut {
+    padding: 0.5rem 1rem;
   }
 }
 
