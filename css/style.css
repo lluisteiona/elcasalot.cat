@@ -372,36 +372,47 @@ footer {
   }
 
   .bloc {
-    max-width: 100% !important;
-    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
   }
 
-  header.dynamic-header {
-    padding: 1rem 0.5rem;
+  .acordio-galeria,
+  .acordio,
+  .acordio-titol,
+  .acordio-contingut,
+  .acordio-contingut button {
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .logo img {
-    max-width: 80px;
+  .acordio-contingut button {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  .acordio-titol {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    justify-content: space-between;
   }
 
-  h2 {
-    font-size: 1.25rem;
+  .boto-galeria {
+    width: 100%;
   }
 
-  .modal-content {
-    width: 90%;
-    padding: 1rem;
+  .boto-galeria button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.9rem 1.1rem;
   }
 
-  .acordio-galeria button {
-    font-size: 0.95rem;
-    padding: 0.6rem 1rem;
+  .boto-galeria h3 {
+    font-size: 1rem;
   }
 }
+
 
 
 /* === ADMIN === */
