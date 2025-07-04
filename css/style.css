@@ -365,6 +365,30 @@ footer {
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
+
+    header.dynamic-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1rem;
+  }
+
+  .logo img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    margin: 0;
+    text-align: center;
+  }
+
+
+  body {
+    overflow-x: hidden;
+  }
   .container {
     display: flex;
     flex-direction: column;
