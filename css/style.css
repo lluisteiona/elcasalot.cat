@@ -366,7 +366,8 @@ footer {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
   }
 
@@ -394,6 +395,11 @@ footer {
   .modal-content {
     width: 90%;
     padding: 1rem;
+  }
+
+  .acordio-galeria button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
   }
 }
 
