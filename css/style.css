@@ -366,33 +366,37 @@ footer {
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .container {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     padding: 1rem;
-    gap: 1rem;
   }
 
   .bloc {
-    width: 100%;
-    max-width: 100%;
+    max-width: 100% !important;
+    padding: 1rem;
   }
 
-  .logo .logo {
-    height: 80px;
+  header.dynamic-header {
+    padding: 1rem 0.5rem;
   }
 
-  .logo h1 {
-    font-size: 1.8rem;
+  .logo img {
+    max-width: 80px;
   }
 
-  .slider {
-    max-width: 100%;
+  h1 {
+    font-size: 1.5rem;
   }
 
-  .acordio-contingut {
-    padding: 0.5rem 1rem;
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 1rem;
   }
 }
+
 
 /* === ADMIN === */
 .editor {
