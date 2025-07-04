@@ -397,7 +397,7 @@ footer {
 
   .bloc {
     width: 100%;
-    max-width: 100%;
+    max-width: 95%;
     box-sizing: border-box;
     margin-bottom: 1rem;
   }
