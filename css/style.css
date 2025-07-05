@@ -43,6 +43,7 @@ html, body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+
 .logo.compacte {
   padding: 0.4rem 1rem;
   gap: 0.5rem;
@@ -55,16 +56,16 @@ html, body {
 }
 
 .logo img {
-  height: 48px;
+  height: 80px;
   transition: all 0.3s ease;
 }
 
 .logo.compacte h1 {
-  font-size: 1.1rem;
+  font-size: 2.5rem;
 }
 
 .logo h1 {
-  font-size: 1.6rem;
+  font-size: 4rem;
   margin: 0;
   transition: font-size 0.3s ease;
   flex: 1;
@@ -72,15 +73,44 @@ html, body {
 }
 
 
-/* === CONTENIDOR === */
+/* === CONTENIDOR GENERAL === */
 .container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
   gap: 1rem;
+  grid-template-areas:
+    "bloc1 contacte"
+    "bloc2 galeria"
+    "bloc3 galeria"
+    "bloc4 galeria"
+    "bloc5 galeria"
+    "bloc6 galeria";
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
+
+.bloc1 { grid-area: bloc1; max-width: 100px;}
+.bloc2 { grid-area: bloc2; max-width: 200px; }
+.bloc3 { grid-area: bloc3; max-width: 200px; }
+.bloc4 { grid-area: bloc4; max-width: 200px; }
+.bloc5 { grid-area: contacte; max-width: 200px; }
+.bloc6 { grid-area: bloc6; max-width: 200px;}
+.galeria {
+  grid-area: galeria;
+  max-width: 100px;
+  width: 100%;
+}
+
+
+/* === MAPA === */
+.mapa {
+  width: 100%;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
 
 /* === BLOC CONTINGUT === */
 .bloc {
