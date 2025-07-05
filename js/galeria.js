@@ -280,7 +280,12 @@ function renderGaleria() {
       <div class="acordio-contingut"></div>
     `;
 
-    const contenidor = acordio.querySelector(".acordio-contingut");
+    
+    acordio.querySelector(".acordio-titol").addEventListener("click", () => {
+      const jaObert = acordio.classList.contains("open");
+      document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
+      if (!jaObert) acordio.classList.add("open");
+    });
 
     cursos[etiqueta].forEach(({ key, nom }) => {
       const btn = document.createElement("button");
@@ -293,12 +298,15 @@ function renderGaleria() {
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
       const jaObert = acordio.classList.contains("open");
     
+      // Tanquem tots
       document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
     
+      // Si el que hem clicat no estava obert, l’obrim
       if (!jaObert) {
         acordio.classList.add("open");
       }
     });
+
 
 
     container.appendChild(acordio);
