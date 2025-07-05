@@ -1,9 +1,8 @@
-let galeria = {};  // Nou format: { "Curs 2024–2025": { k123: {...} } }
-let esAdmin = false;
-let currentCurs = "";
 let currentKey = "";
+let esAdmin = false;
+let galeria = {}; // nou objecte principal
 
-// Carrega des de Firebase
+// 🔁 Carrega les dades des de Firebase
 firebase.database().ref("galeria").once("value").then(snapshot => {
   const data = snapshot.val();
   if (data) {
@@ -12,21 +11,19 @@ firebase.database().ref("galeria").once("value").then(snapshot => {
   }
 });
 
-// Desa a Firebase
+// ✅ Desa a Firebase (tot l’objecte complet)
 function desaLinks() {
   firebase.database().ref("galeria").set(galeria);
 }
 
-// 🔐 Accés públic
+// 🔑 Accés públic
 const correctPassword = "esplai123";
 
-// 🔓 Modal d'accés
-function requestAccess(key, curs) {
+function requestAccess(key) {
   currentKey = key;
-  currentCurs = curs;
-
   const modal = document.getElementById("passwordModal");
   const input = document.getElementById("passwordInput");
+
   modal.style.display = "flex";
   input.value = "";
   input.focus();
@@ -38,20 +35,22 @@ function closeModal() {
 
 function validatePassword() {
   const input = document.getElementById("passwordInput").value.trim();
-  if (input === correctPassword) {
-    closeModal();
-    const entrada = galeria?.[currentCurs]?.[currentKey];
-    if (entrada?.link) {
-      window.open(entrada.link, "_blank");
-    } else {
-      alert("No s'ha trobat l'enllaç.");
+  for (const curs in galeria) {
+    if (galeria[curs][currentKey]) {
+      if (input === correctPassword) {
+        closeModal();
+        window.open(galeria[curs][currentKey].link, "_blank");
+        return;
+      } else {
+        alert("Contrasenya incorrecta.");
+        return;
+      }
     }
-  } else {
-    alert("Contrasenya incorrecta.");
   }
+  alert("Enllaç no trobat.");
 }
 
-// Navegació suau
+// Suau scroll
 document.addEventListener("keydown", e => {
   const modalVisible = document.getElementById("passwordModal").style.display === "flex";
   if (modalVisible && e.key === "Escape") closeModal();
@@ -63,6 +62,17 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute("href"));
     if (target) target.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+// Acordions
+document.querySelectorAll('.acordio-titol').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const acordio = btn.parentElement;
+    document.querySelectorAll('.acordio').forEach(el => {
+      if (el !== acordio) el.classList.remove('open');
+    });
+    acordio.classList.toggle('open');
   });
 });
 
@@ -81,11 +91,9 @@ sliderImages.forEach(imgName => {
 });
 
 let currentSlide = 0;
-
 function updateSlider() {
   sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
-
 nextBtn.addEventListener("click", () => {
   currentSlide = (currentSlide + 1) % sliderImages.length;
   updateSlider();
@@ -137,14 +145,14 @@ function activarModeAdmin() {
     acordio.appendChild(afegirBtn);
 
     acordio.querySelectorAll('.acordio-contingut button').forEach(btn => {
-      btn.onclick = () => editarSeccio(btn.dataset.key, curs);
+      btn.onclick = () => editarSeccio(curs, btn);
     });
   });
 
   const botoGlobal = document.createElement("button");
   botoGlobal.textContent = "+";
   botoGlobal.className = "boto-admin";
-  botoGlobal.onclick = afegirNouCurs;
+  botoGlobal.onclick = () => afegirNouCurs();
   document.querySelector(".acordio-galeria").appendChild(botoGlobal);
 }
 
@@ -173,18 +181,21 @@ function afegirNovaSeccio(curs) {
   });
 }
 
-function editarSeccio(key, curs) {
-  const entrada = galeria[curs]?.[key];
-  if (!entrada) return;
+function editarSeccio(curs, btn) {
+  const currentKey = btn.dataset.key || "";
+  const currentEntrada = galeria[curs][currentKey];
+  if (!currentEntrada) return;
 
-  obrirEditModal("Editar secció", entrada.nom, entrada.link, (nouNom, nouLink) => {
+  obrirEditModal("Editar secció", currentEntrada.nom, currentEntrada.link, (nouNom, nouLink) => {
+    if (!nouNom || !nouLink) return;
+
     const novaKey = `k_${Date.now()}`;
     galeria[curs][novaKey] = { nom: nouNom, link: nouLink };
-    delete galeria[curs][key];
+    delete galeria[curs][currentKey];
     desaLinks();
     renderGaleria();
   }, () => {
-    delete galeria[curs][key];
+    delete galeria[curs][currentKey];
     desaLinks();
     renderGaleria();
   });
@@ -221,35 +232,40 @@ function tancarEditModal() {
   document.getElementById("editModal").style.display = "none";
 }
 
+// 🧱 Nou render adaptat
 function renderGaleria() {
   const container = document.querySelector(".acordio-galeria");
   if (!container) return;
 
   container.innerHTML = "";
 
-  const cursosOrdenats = Object.keys(galeria).sort().reverse();
+  // Ordenem els cursos per any (descendent)
+  const cursosOrdenats = Object.keys(galeria).sort((a, b) => {
+    const anyA = parseInt(a.match(/\d{4}/));
+    const anyB = parseInt(b.match(/\d{4}/));
+    return anyB - anyA;
+  });
 
-  for (const curs of cursosOrdenats) {
+  cursosOrdenats.forEach(etiqueta => {
     const acordio = document.createElement("div");
     acordio.classList.add("acordio");
-    acordio.dataset.curs = curs;
-
+    acordio.dataset.curs = etiqueta;
     acordio.innerHTML = `
       <button class="acordio-titol">
-        <span>${curs}</span><span class="fletxa">▼</span>
+        <span>${etiqueta}</span><span class="fletxa">▼</span>
       </button>
       <div class="acordio-contingut"></div>
     `;
 
-    const contingut = acordio.querySelector(".acordio-contingut");
+    const contenidor = acordio.querySelector(".acordio-contingut");
 
-    for (const key in galeria[curs]) {
-      const entrada = galeria[curs][key];
+    for (const key in galeria[etiqueta]) {
+      const { nom } = galeria[etiqueta][key];
       const btn = document.createElement("button");
-      btn.textContent = entrada.nom;
-      btn.onclick = () => requestAccess(key, curs);
+      btn.textContent = nom;
+      btn.onclick = () => requestAccess(key);
       btn.dataset.key = key;
-      contingut.appendChild(btn);
+      contenidor.appendChild(btn);
     }
 
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
@@ -259,18 +275,14 @@ function renderGaleria() {
     });
 
     container.appendChild(acordio);
-  }
+  });
 
   if (esAdmin) activarModeAdmin();
 }
 
-// Animació del header
+// Logo sticky scroll effect
 window.addEventListener("scroll", () => {
   const logoHeader = document.querySelector(".logo");
   if (!logoHeader) return;
-  if (window.scrollY > 50) {
-    logoHeader.classList.add("compacte");
-  } else {
-    logoHeader.classList.remove("compacte");
-  }
+  logoHeader.classList.toggle("compacte", window.scrollY > 50);
 });
