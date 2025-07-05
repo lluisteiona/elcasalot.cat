@@ -4,30 +4,25 @@
   --blau: #003366;
   --blanc: #ffffff;
   --negre: #111;
-  --ombra: rgba(0, 0, 0, 0.1);
+  --ombra: rgba(0, 0, 0, 0.15);
   --accent: #007BFF;
 }
 
-/* === RESETEIG BASE === */
-* {
-  box-sizing: border-box;
+/* === FONS GENERAL AMB DEGRADAT TACA === */
+body {
   margin: 0;
-  padding: 0;
-}
-
-html, body {
-  overflow-x: hidden;
-  width: 100%;
   font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
   background: radial-gradient(circle at 20% 30%, #ffe066 0%, transparent 40%),
               radial-gradient(circle at 80% 70%, #a1c4fd 0%, transparent 50%),
               linear-gradient(to bottom, #f0f4ff, #fef9e7);
+  background-repeat: no-repeat;
   min-height: 100vh;
   color: var(--negre);
+  scroll-behavior: smooth;
 }
 
-/* === LOGO === */
+/* === ENCAVALADURA === */
+
 .logo {
   position: sticky;
   top: 0;
@@ -71,13 +66,21 @@ html, body {
   flex: 1;
   text-align: center;
 }
+.h1 {
+  font-size: 4rem;
+  margin: 0;
+  transition: font-size 0.3s ease;
+  flex: 1;
+  text-align: center;
+}
+
 
 
 /* === CONTENIDOR GENERAL === */
 .container {
   display: grid;
   grid-template-columns: 1fr 0.7fr;
-  gap: 1rem;
+  gap: 0.5rem;
   grid-template-areas:
     "bloc1 contacte"
     "bloc2 galeria"
@@ -104,20 +107,15 @@ html, body {
 }
 
 
-/* === MAPA === */
-.mapa {
-  width: 100%;
-  border-radius: 12px;
-  margin: 1rem 0;
-}
-
-
-/* === BLOC CONTINGUT === */
+/* === BLOCS DE CONTINGUT === */
 .bloc {
   background: var(--blanc);
   border-radius: 16px;
   box-shadow: 0 8px 24px var(--ombra);
   padding: 2rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeIn 0.6s ease-in-out;
 }
@@ -129,13 +127,23 @@ html, body {
 
 .bloc h2 {
   color: var(--blau);
-  margin-bottom: 1rem;
+  margin-top: 0;
 }
 
-/* === SLIDER === */
+.bloc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.bloc a:hover {
+  text-decoration: underline;
+}
+
+/* === Fotos === */
 .slider {
   position: relative;
-  max-width: 100%;
+  width: 100%;
+  max-width: 400px;
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 12px;
@@ -149,6 +157,7 @@ html, body {
 
 .slider-inner img {
   width: 100%;
+  height: auto;
   flex-shrink: 0;
   object-fit: cover;
   aspect-ratio: 4 / 3;
@@ -170,11 +179,58 @@ html, body {
   transition: opacity 0.2s ease;
 }
 
-.slider-btn:hover { opacity: 1; }
-.slider-btn.prev { left: 10px; }
-.slider-btn.next { right: 10px; }
+.slider-btn:hover {
+  opacity: 1;
+}
 
-/* === ACORDIONS === */
+.slider-btn.prev {
+  left: 10px;
+}
+.slider-btn.next {
+  right: 10px;
+}
+
+/* === MAPA === */
+.mapa {
+  width: 100%;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+/* === BOTONS DE GALERIA === */
+.boto-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.boto-galeria button {
+  padding: 0.8rem 1.2rem;
+  background: var(--groc);
+  color: var(--blau);
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--ombra);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.boto-galeria button:hover {
+  background: #ffe600;
+  transform: scale(1.05);
+}
+
+.boto-galeria h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--blau);
+  border-bottom: 1px solid var(--ombra);
+  padding-bottom: 0.3rem;
+}
+
 .acordio-galeria {
   display: flex;
   flex-direction: column;
@@ -184,91 +240,99 @@ html, body {
 .acordio {
   border: 1px solid var(--ombra);
   border-radius: 10px;
-  background-color: #f9f9f9;
   overflow: hidden;
+  background-color: #f9f9f9;
   box-shadow: 0 2px 6px var(--ombra);
 }
 
 .acordio-titol {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
   background: var(--blau);
   color: var(--groc);
   border: none;
-  padding: 1rem;
-  font-size: 1rem;
   font-weight: bold;
-  width: 100%;
+  text-align: left;
   cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
 }
 
 .acordio-titol:hover {
   background: #002244;
 }
 
-.fletxa {
-  transition: transform 0.3s ease;
-}
-
-.acordio.open .fletxa {
-  transform: rotate(180deg);
-}
-
 .acordio-contingut {
-  display: flex;
+  padding: 0.8rem 1rem;
+  display: none;
   flex-direction: column;
   gap: 0.5rem;
-  background: var(--blanc);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.3s ease;
-  padding: 0 1rem;
-}
-
-.acordio.open .acordio-contingut {
-  max-height: 500px;
-  padding: 1rem;
+  background-color: var(--blanc);
 }
 
 .acordio-contingut button {
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
   background: var(--groc);
   color: var(--blau);
-  border: none;
-  border-radius: 8px;
-  padding: 0.8rem;
-  font-size: 1rem;
   font-weight: bold;
+  border: none;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 .acordio-contingut button:hover {
   background: #ffe600;
 }
 
-/* === BOTONS ADMIN === */
-.boto-admin {
-  margin: 0.5rem auto;
-  display: block;
+.acordio-titol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
   background: var(--blau);
   color: var(--groc);
   border: none;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
+  font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px var(--ombra);
+  transition: background 0.3s;
 }
 
-/* === MODAL === */
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
+  padding: 0 1rem;
+}
+
+.acordio.open .acordio-contingut {
+  max-height: 500px; /* o el màxim esperat */
+  padding: 0.8rem 1rem;
+}
+
+.fletxa {
+  transition: transform 0.4s ease;
+}
+
+.acordio.open .fletxa {
+  transform: rotate(180deg);
+}
+
+
+/* === MODAL DE CONTRASENYA === */
 .modal {
+  display: none;
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: none;
+  background: rgba(0, 0, 0, 0.6);
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -279,27 +343,26 @@ html, body {
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
-  width: 90%;
   max-width: 400px;
+  width: 90%;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .modal-content input {
   padding: 0.8rem;
-  width: 90%;
+  width: 80%;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin: 1rem 0;
+  margin-top: 1rem;
 }
 
 .modal-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .modal-buttons button {
+  margin: 0.5rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   border: none;
@@ -313,11 +376,145 @@ html, body {
   background: #001f3f;
 }
 
-#editEsborrar {
-  background: crimson;
+/* === FOOTER === */
+footer {
+  text-align: center;
+  background: var(--blau);
+  color: var(--groc);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  margin-top: 3rem;
 }
 
-/* === EDITOR ADMIN === */
+/* === BOTONS DE GALERIA === */
+.boto-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.boto-galeria button {
+  padding: 0.8rem 1.2rem;
+  background: var(--groc);
+  color: var(--blau);
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--ombra);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.boto-galeria button:hover {
+  background: #ffe600;
+  transform: scale(1.05);
+}
+
+.boto-galeria h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--blau);
+  border-bottom: 1px solid var(--ombra);
+  padding-bottom: 0.3rem;
+}
+
+.acordio-galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.acordio {
+  border: 1px solid var(--ombra);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px var(--ombra);
+}
+
+.acordio-titol {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.acordio-titol:hover {
+  background: #002244;
+}
+
+.acordio-contingut {
+  padding: 0.8rem 1rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
+}
+
+.acordio-contingut button {
+  padding: 0.6rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  background: var(--groc);
+  color: var(--blau);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.acordio-contingut button:hover {
+  background: #ffe600;
+}
+
+.acordio-titol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
+  padding: 0 1rem;
+}
+
+.acordio.open .acordio-contingut {
+  max-height: 500px; /* o el màxim esperat */
+  padding: 0.8rem 1rem;
+}
+
+.fletxa {
+  transition: transform 0.4s ease;
+}
+
+.acordio.open .fletxa {
+  transform: rotate(180deg);
+}
+
+/* === ADMIN === */
 .editor {
   position: fixed;
   bottom: 20px;
@@ -338,6 +535,7 @@ html, body {
   padding: 0.5rem;
   border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 0.9rem;
 }
 
 .editor button {
@@ -358,14 +556,17 @@ html, body {
   display: none !important;
 }
 
-/* === FOOTER === */
-footer {
-  text-align: center;
-  background: var(--blau);
-  color: var(--groc);
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  margin-top: 3rem;
+.plegable .plegable-titol {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #002b5c;
+  color: #ffd700;
+  border: none;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
 }
 
 /* === RESPONSIVE === */
