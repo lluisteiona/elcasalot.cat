@@ -180,9 +180,17 @@ function afegirNouCurs() {
   document.querySelector(".acordio-galeria").prepend(acordio);
 
   acordio.querySelector(".acordio-titol").addEventListener("click", () => {
+    const jaObert = acordio.classList.contains("open");
+
+    // Tanquem tots
     document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-    acordio.classList.toggle("open");
+
+    // Si el que hem clicat no estava obert, l’obrim
+    if (!jaObert) {
+      acordio.classList.add("open");
+    }
   });
+
 
   activarModeAdmin();
 }
@@ -291,8 +299,9 @@ function renderGaleria() {
     });
 
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
+      const jaObert = acordio.classList.contains("open");
       document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-      acordio.classList.toggle("open");
+      if (!jaObert) acordio.classList.add("open");
     });
 
     container.appendChild(acordio);
@@ -300,8 +309,3 @@ function renderGaleria() {
 
   if (esAdmin) activarModeAdmin();
 }
-
-
-
-
-
