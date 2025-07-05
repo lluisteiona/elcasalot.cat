@@ -47,7 +47,7 @@ body {
 }
 
 .logo h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0;
   text-align: center;
   flex: 1;
@@ -65,7 +65,7 @@ body {
 }
 
 .logo.compacte h1 {
-  font-size: 1.3rem;
+  font-size: 3rem;
 }
 
 /* === CONTAINER === */
