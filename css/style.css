@@ -309,6 +309,9 @@ footer {
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
+  .mapa {
+    max-height: 200px;
+  }
   .container {
     padding: 1rem;
   }
