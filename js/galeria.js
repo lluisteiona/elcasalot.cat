@@ -316,3 +316,15 @@ function renderGaleria() {
 
   if (esAdmin) activarModeAdmin();
 }
+
+window.addEventListener("scroll", () => {
+  const logoHeader = document.querySelector(".logo");
+  if (!logoHeader) return;
+
+  if (window.scrollY > 50) {
+    logoHeader.classList.add("compacte");
+  } else {
+    logoHeader.classList.remove("compacte");
+  }
+});
+
