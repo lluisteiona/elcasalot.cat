@@ -280,36 +280,7 @@ function renderGaleria() {
       <div class="acordio-contingut"></div>
     `;
 
-    // ✅ correcte: defineix "contingut"
-    const contingut = acordio.querySelector(".acordio-contingut");
-
-    // ✅ listener per obrir/tancar acordions
-    acordio.querySelector(".acordio-titol").addEventListener("click", () => {
-      const jaObert = acordio.classList.contains("open");
-      document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-      if (!jaObert) acordio.classList.add("open");
-    });
-
-    cursos[etiqueta].forEach(({ key, nom }) => {
-      const btn = document.createElement("button");
-      btn.textContent = nom;
-      btn.onclick = () => requestAccess(key);
-      btn.dataset.key = key;
-      contingut.appendChild(btn);
-    });
-
-    container.appendChild(acordio);
-  }
-
-  if (esAdmin) activarModeAdmin();
-}
-
-    
-    acordio.querySelector(".acordio-titol").addEventListener("click", () => {
-      const jaObert = acordio.classList.contains("open");
-      document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-      if (!jaObert) acordio.classList.add("open");
-    });
+    const contenidor = acordio.querySelector(".acordio-contingut");
 
     cursos[etiqueta].forEach(({ key, nom }) => {
       const btn = document.createElement("button");
@@ -320,25 +291,15 @@ function renderGaleria() {
     });
 
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
-      const jaObert = acordio.classList.contains("open");
-    
-      // Tanquem tots
       document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-    
-      // Si el que hem clicat no estava obert, l’obrim
-      if (!jaObert) {
-        acordio.classList.add("open");
-      }
+      acordio.classList.toggle("open");
     });
-
-
 
     container.appendChild(acordio);
   }
 
   if (esAdmin) activarModeAdmin();
 }
-
 
 
 
