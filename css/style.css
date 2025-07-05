@@ -72,8 +72,8 @@ body {
 }
 
 .bloc1 { grid-area: bloc1; max-width: 100px;}
-.bloc2 { grid-area: bloc2; max-width: 200px; }
-.bloc3 { grid-area: bloc3; max-width: 200px; }
+.bloc3 { grid-area: bloc2; max-width: 200px; }
+.bloc2 { grid-area: bloc3; max-width: 200px; }
 .bloc4 { grid-area: bloc4; max-width: 200px; }
 .bloc5 { grid-area: contacte; max-width: 200px; }
 .bloc6 { grid-area: bloc6; max-width: 200px;}
