@@ -60,8 +60,8 @@ body {
   gap: 0.5rem;
   grid-template-areas:
     "bloc1 contacte"
-    "bloc2 galeria"
     "bloc3 galeria"
+    "bloc2 galeria"
     "bloc4 galeria"
     "bloc5 galeria"
     "bloc6 galeria";
