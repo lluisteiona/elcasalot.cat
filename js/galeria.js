@@ -1,30 +1,28 @@
 let currentKey = "";
 let esAdmin = false;
-let links = {};
+let galeria = {};
 
-// 🔁 Carrega les dades des de Firebase
+// 🔁 Carrega dades
 firebase.database().ref("galeria").once("value").then(snapshot => {
   const data = snapshot.val();
   if (data) {
-    links = data;
+    galeria = data;
     renderGaleria();
   }
 });
 
-// ✅ Desa a Firebase (tot l’objecte complet)
+// ✅ Desa
 function desaLinks() {
-  firebase.database().ref("galeria").set(links);
+  firebase.database().ref("galeria").set(galeria);
 }
 
 // 🔑 Accés públic
 const correctPassword = "esplai123";
 
-// Modal per veure una galeria
-function requestAccess(key) {
-  currentKey = key;
+function requestAccess(key, curs) {
+  currentKey = { key, curs };
   const modal = document.getElementById("passwordModal");
   const input = document.getElementById("passwordInput");
-
   modal.style.display = "flex";
   input.value = "";
   input.focus();
@@ -38,7 +36,7 @@ function validatePassword() {
   const input = document.getElementById("passwordInput").value.trim();
   if (input === correctPassword) {
     closeModal();
-    const entrada = links[currentKey];
+    const entrada = galeria[currentKey.curs][currentKey.key];
     if (entrada?.link) {
       window.open(entrada.link, "_blank");
     } else {
@@ -64,22 +62,10 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Acordions
-document.querySelectorAll('.acordio-titol').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const acordio = btn.parentElement;
-    document.querySelectorAll('.acordio').forEach(el => {
-      if (el !== acordio) el.classList.remove('open');
-    });
-    acordio.classList.toggle('open');
-  });
-});
-
 // Slider
 const sliderContainer = document.querySelector("#slider-que-fem .slider-inner");
 const prevBtn = document.querySelector("#slider-que-fem .prev");
 const nextBtn = document.querySelector("#slider-que-fem .next");
-
 const sliderImages = ["foto1.png", "foto2.png", "foto3.png", "foto4.png", "foto5.png", "foto6.png"];
 
 sliderImages.forEach(imgName => {
@@ -140,14 +126,16 @@ function activarModeAdmin() {
   document.querySelectorAll(".boto-admin").forEach(el => el.remove());
 
   document.querySelectorAll('.acordio').forEach(acordio => {
+    const curs = acordio.dataset.curs;
     const afegirBtn = document.createElement("button");
     afegirBtn.textContent = "+";
     afegirBtn.className = "boto-admin";
-    afegirBtn.onclick = () => afegirNovaSeccio(acordio);
+    afegirBtn.onclick = () => afegirNovaSeccio(curs);
     acordio.appendChild(afegirBtn);
 
     acordio.querySelectorAll('.acordio-contingut button').forEach(btn => {
-      btn.onclick = () => editarSeccio(btn);
+      const key = btn.dataset.key;
+      btn.onclick = () => editarSeccio(curs, key);
     });
   });
 
@@ -162,66 +150,42 @@ function afegirNouCurs() {
   const any = prompt("Introdueix l’any inicial (ex: 2024)");
   if (!any || isNaN(any)) return;
 
-  const etiqueta = `Curs ${any}–${parseInt(any)+1}`;
-  if ([...document.querySelectorAll('.acordio-titol span')]
-      .some(span => span.textContent === etiqueta)) {
+  const etiqueta = `Curs ${any}–${parseInt(any) + 1}`;
+  if (galeria[etiqueta]) {
     alert("Aquest curs ja existeix.");
     return;
   }
 
-  const acordio = document.createElement("div");
-  acordio.classList.add("acordio");
-  acordio.innerHTML = `
-    <button class="acordio-titol">
-      <span>${etiqueta}</span><span class="fletxa">▼</span>
-    </button>
-    <div class="acordio-contingut"></div>
-  `;
-  document.querySelector(".acordio-galeria").prepend(acordio);
-
-  acordio.querySelector(".acordio-titol").addEventListener("click", () => {
-    const jaObert = acordio.classList.contains("open");
-
-    // Tanquem tots
-    document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-
-    // Si el que hem clicat no estava obert, l’obrim
-    if (!jaObert) {
-      acordio.classList.add("open");
-    }
-  });
-
-
-  activarModeAdmin();
+  galeria[etiqueta] = {};
+  desaLinks();
+  renderGaleria();
 }
 
-function afegirNovaSeccio(acordio) {
+function afegirNovaSeccio(curs) {
   obrirEditModal("Afegir nova secció", "", "", (nom, link) => {
     if (!nom || !link) return;
 
-    const key = `k_${Date.now()}`; // clau única
-    links[key] = { nom, link };
+    const key = `k_${Date.now()}`;
+    galeria[curs][key] = { nom, link };
     desaLinks();
-
     renderGaleria();
   });
 }
 
-function editarSeccio(btn) {
-  const currentKey = btn.dataset.key || "";
-  const currentEntrada = links[currentKey];
-  if (!currentEntrada) return;
+function editarSeccio(curs, key) {
+  const entrada = galeria[curs][key];
+  if (!entrada) return;
 
-  obrirEditModal("Editar secció", currentEntrada.nom, currentEntrada.link, (nouNom, nouLink) => {
+  obrirEditModal("Editar secció", entrada.nom, entrada.link, (nouNom, nouLink) => {
     if (!nouNom || !nouLink) return;
 
     const novaKey = `k_${Date.now()}`;
-    links[novaKey] = { nom: nouNom, link: nouLink };
-    delete links[currentKey];
+    galeria[curs][novaKey] = { nom: nouNom, link: nouLink };
+    delete galeria[curs][key];
     desaLinks();
     renderGaleria();
   }, () => {
-    delete links[currentKey];
+    delete galeria[curs][key];
     desaLinks();
     renderGaleria();
   });
@@ -261,58 +225,44 @@ function tancarEditModal() {
 function renderGaleria() {
   const container = document.querySelector(".acordio-galeria");
   if (!container) return;
-
   container.innerHTML = "";
-  const cursos = {};
 
-  for (const key in links) {
-    const entrada = links[key];
-    const nom = entrada.nom || key;
-    const link = entrada.link;
+  const cursosOrdenats = Object.keys(galeria).sort((a, b) => {
+    const anyA = parseInt(a.match(/\d{4}/));
+    const anyB = parseInt(b.match(/\d{4}/));
+    return anyB - anyA;
+  });
 
-    const anyMatch = nom.match(/\d{4}/);
-    const any = anyMatch ? parseInt(anyMatch[0]) : new Date().getFullYear();
-    const nomText = nom.toLowerCase();
-    const curs = any - (nomText.includes("tardor") ? 0 : 1);
-    const etiqueta = `Curs ${curs}–${curs + 1}`;
-
-    if (!Array.isArray(cursos[etiqueta])) cursos[etiqueta] = [];
-    cursos[etiqueta].push({ key, nom });
-  }
-
-  for (const etiqueta in cursos) {
+  cursosOrdenats.forEach(curs => {
     const acordio = document.createElement("div");
     acordio.classList.add("acordio");
+    acordio.dataset.curs = curs;
     acordio.innerHTML = `
-      <button class="acordio-titol"><span>${etiqueta}</span><span class="fletxa">▼</span></button>
+      <button class="acordio-titol">
+        <span>${curs}</span><span class="fletxa">▼</span>
+      </button>
       <div class="acordio-contingut"></div>
     `;
 
     const contenidor = acordio.querySelector(".acordio-contingut");
 
-    cursos[etiqueta].forEach(({ key, nom }) => {
+    for (const key in galeria[curs]) {
+      const entrada = galeria[curs][key];
       const btn = document.createElement("button");
-      btn.textContent = nom;
-      btn.onclick = () => requestAccess(key);
+      btn.textContent = entrada.nom;
+      btn.onclick = () => requestAccess(key, curs);
       btn.dataset.key = key;
       contenidor.appendChild(btn);
-    });
+    }
 
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
       const jaObert = acordio.classList.contains("open");
-    
-      // Tanquem tots
       document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-    
-      // Si el que hem clicat no estava obert, l’obrim
-      if (!jaObert) {
-        acordio.classList.add("open");
-      }
+      if (!jaObert) acordio.classList.add("open");
     });
 
-
     container.appendChild(acordio);
-  }
+  });
 
   if (esAdmin) activarModeAdmin();
 }
@@ -320,11 +270,6 @@ function renderGaleria() {
 window.addEventListener("scroll", () => {
   const logoHeader = document.querySelector(".logo");
   if (!logoHeader) return;
-
-  if (window.scrollY > 50) {
-    logoHeader.classList.add("compacte");
-  } else {
-    logoHeader.classList.remove("compacte");
-  }
+  if (window.scrollY > 50) logoHeader.classList.add("compacte");
+  else logoHeader.classList.remove("compacte");
 });
-
