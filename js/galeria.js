@@ -291,9 +291,15 @@ function renderGaleria() {
     });
 
     acordio.querySelector(".acordio-titol").addEventListener("click", () => {
+      const jaObert = acordio.classList.contains("open");
+    
       document.querySelectorAll(".acordio").forEach(a => a.classList.remove("open"));
-      acordio.classList.toggle("open");
+    
+      if (!jaObert) {
+        acordio.classList.add("open");
+      }
     });
+
 
     container.appendChild(acordio);
   }
