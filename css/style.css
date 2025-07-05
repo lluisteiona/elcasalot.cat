@@ -482,4 +482,55 @@ footer {
 }
 
 
+.add-inner-button,
+.add-course-button {
+  margin-left: 0.5rem;
+  background: #00aa00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.delete-entry-button {
+  background: transparent;
+  color: red;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+
+.boto-admin {
+  margin: 0.5rem auto;
+  display: block;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--ombra);
+}
+
+#editModal input {
+  display: block;
+  width: 90%;
+  margin: 0.5rem auto;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#editEsborrar {
+  background: crimson;
+  color: white;
+}
+
   
