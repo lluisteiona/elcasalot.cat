@@ -4,24 +4,30 @@
   --blau: #003366;
   --blanc: #ffffff;
   --negre: #111;
-  --ombra: rgba(0, 0, 0, 0.15);
+  --ombra: rgba(0, 0, 0, 0.1);
   --accent: #007BFF;
 }
 
-/* === FONS GENERAL AMB DEGRADAT TACA === */
-body {
+/* === RESETEIG BASE === */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
   font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
   background: radial-gradient(circle at 20% 30%, #ffe066 0%, transparent 40%),
               radial-gradient(circle at 80% 70%, #a1c4fd 0%, transparent 50%),
               linear-gradient(to bottom, #f0f4ff, #fef9e7);
-  background-repeat: no-repeat;
   min-height: 100vh;
   color: var(--negre);
-  scroll-behavior: smooth;
 }
 
-/* === ENCAVALADURA === */
+/* === LOGO === */
 .logo {
   text-align: center;
   padding: 2rem 1rem;
@@ -29,70 +35,28 @@ body {
   color: var(--groc);
 }
 
-.logo .logo {
-  height: 100px;
-  margin-bottom: 1rem;
-}
-
-.logo h1 {
-  font-size: 2.4rem;
-  margin: 0;
-  text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
-}
-
 .logo img {
-  cursor: default; /* o 'auto' si ho prefereixes */
-  pointer-events: auto; /* manté clicabilitat */
+  height: 100px;
   user-select: none;
+  cursor: pointer;
 }
 
-.logo img:hover {
-  filter: none !important;
-  transform: none !important;
-  opacity: 1 !important;
-}
-
-
-/* === CONTENIDOR GENERAL === */
+/* === CONTENIDOR === */
 .container {
-  display: grid;
-  grid-template-columns: 1fr 0.7fr;
-  gap: 0.5rem;
-  grid-template-areas:
-    "bloc1 contacte"
-    "bloc3 galeria"
-    "bloc2 galeria"
-    "bloc4 galeria"
-    "bloc5 galeria"
-    "bloc6 galeria";
-  padding: 2rem;
   max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.bloc1 { grid-area: bloc1; max-width: 100px;}
-.bloc3 { grid-area: bloc2; max-width: 200px; }
-.bloc2 { grid-area: bloc3; max-width: 200px; }
-.bloc4 { grid-area: bloc4; max-width: 200px; }
-.bloc5 { grid-area: contacte; max-width: 200px; }
-.bloc6 { grid-area: bloc6; max-width: 200px;}
-.galeria {
-  grid-area: galeria;
-  max-width: 100px;
-  width: 100%;
-}
-
-
-/* === BLOCS DE CONTINGUT === */
+/* === BLOC CONTINGUT === */
 .bloc {
   background: var(--blanc);
   border-radius: 16px;
   box-shadow: 0 8px 24px var(--ombra);
   padding: 2rem;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   animation: fadeIn 0.6s ease-in-out;
 }
@@ -104,23 +68,13 @@ body {
 
 .bloc h2 {
   color: var(--blau);
-  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
-.bloc a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.bloc a:hover {
-  text-decoration: underline;
-}
-
-/* === Fotos === */
+/* === SLIDER === */
 .slider {
   position: relative;
-  width: 100%;
-  max-width: 400px;
+  max-width: 100%;
   margin: 2rem auto;
   overflow: hidden;
   border-radius: 12px;
@@ -134,7 +88,6 @@ body {
 
 .slider-inner img {
   width: 100%;
-  height: auto;
   flex-shrink: 0;
   object-fit: cover;
   aspect-ratio: 4 / 3;
@@ -156,58 +109,11 @@ body {
   transition: opacity 0.2s ease;
 }
 
-.slider-btn:hover {
-  opacity: 1;
-}
+.slider-btn:hover { opacity: 1; }
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
 
-.slider-btn.prev {
-  left: 10px;
-}
-.slider-btn.next {
-  right: 10px;
-}
-
-/* === MAPA === */
-.mapa {
-  width: 100%;
-  border-radius: 12px;
-  margin: 1rem 0;
-}
-
-/* === BOTONS DE GALERIA === */
-.boto-galeria {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.boto-galeria button {
-  padding: 0.8rem 1.2rem;
-  background: var(--groc);
-  color: var(--blau);
-  font-weight: bold;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px var(--ombra);
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.boto-galeria button:hover {
-  background: #ffe600;
-  transform: scale(1.05);
-}
-
-.boto-galeria h3 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-  color: var(--blau);
-  border-bottom: 1px solid var(--ombra);
-  padding-bottom: 0.3rem;
-}
-
+/* === ACORDIONS === */
 .acordio-galeria {
   display: flex;
   flex-direction: column;
@@ -217,99 +123,91 @@ body {
 .acordio {
   border: 1px solid var(--ombra);
   border-radius: 10px;
-  overflow: hidden;
   background-color: #f9f9f9;
+  overflow: hidden;
   box-shadow: 0 2px 6px var(--ombra);
-}
-
-.acordio-titol {
-  width: 100%;
-  padding: 0.8rem 1rem;
-  background: var(--blau);
-  color: var(--groc);
-  border: none;
-  font-weight: bold;
-  text-align: left;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s;
-}
-
-.acordio-titol:hover {
-  background: #002244;
-}
-
-.acordio-contingut {
-  padding: 0.8rem 1rem;
-  display: none;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: var(--blanc);
-}
-
-.acordio-contingut button {
-  padding: 0.6rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  background: var(--groc);
-  color: var(--blau);
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.acordio-contingut button:hover {
-  background: #ffe600;
 }
 
 .acordio-titol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 0.8rem 1rem;
   background: var(--blau);
   color: var(--groc);
   border: none;
-  font-weight: bold;
+  padding: 1rem;
   font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
-.acordio-contingut {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: var(--blanc);
-  padding: 0 1rem;
-}
-
-.acordio.open .acordio-contingut {
-  max-height: 500px; /* o el màxim esperat */
-  padding: 0.8rem 1rem;
+.acordio-titol:hover {
+  background: #002244;
 }
 
 .fletxa {
-  transition: transform 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .acordio.open .fletxa {
   transform: rotate(180deg);
 }
 
+.acordio-contingut {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--blanc);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 1rem;
+}
 
-/* === MODAL DE CONTRASENYA === */
+.acordio.open .acordio-contingut {
+  max-height: 500px;
+  padding: 1rem;
+}
+
+.acordio-contingut button {
+  background: var(--groc);
+  color: var(--blau);
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.acordio-contingut button:hover {
+  background: #ffe600;
+}
+
+/* === BOTONS ADMIN === */
+.boto-admin {
+  margin: 0.5rem auto;
+  display: block;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--ombra);
+}
+
+/* === MODAL === */
 .modal {
-  display: none;
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -320,26 +218,27 @@ body {
   padding: 2rem;
   border-radius: 12px;
   text-align: center;
-  max-width: 400px;
   width: 90%;
+  max-width: 400px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .modal-content input {
   padding: 0.8rem;
-  width: 80%;
+  width: 90%;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 .modal-buttons {
-  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .modal-buttons button {
-  margin: 0.5rem;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   border: none;
@@ -353,93 +252,11 @@ body {
   background: #001f3f;
 }
 
-/* === FOOTER === */
-footer {
-  text-align: center;
-  background: var(--blau);
-  color: var(--groc);
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  margin-top: 3rem;
+#editEsborrar {
+  background: crimson;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-
-    header.dynamic-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 1rem;
-  }
-
-  .logo img {
-    max-width: 100px;
-    height: auto;
-    margin-bottom: 0.5rem;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-    margin: 0;
-    text-align: center;
-  }
-
-
-  body {
-    overflow-x: hidden;
-  }
-  .container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-  }
-
-  .bloc {
-    width: 100%;
-    max-width: 95%;
-    box-sizing: border-box;
-    margin-bottom: 1rem;
-  }
-
-  .acordio-galeria,
-  .acordio,
-  .acordio-titol,
-  .acordio-contingut,
-  .acordio-contingut button {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .acordio-contingut button {
-    font-size: 1rem;
-    padding: 0.75rem 1rem;
-  }
-
-  .acordio-titol {
-    font-size: 1rem;
-    padding: 0.8rem 1rem;
-    justify-content: space-between;
-  }
-
-  .boto-galeria {
-    width: 100%;
-  }
-
-  .boto-galeria button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.9rem 1.1rem;
-  }
-
-  .boto-galeria h3 {
-    font-size: 1rem;
-  }
-}
-
-
-
-/* === ADMIN === */
+/* === EDITOR ADMIN === */
 .editor {
   position: fixed;
   bottom: 20px;
@@ -460,7 +277,6 @@ footer {
   padding: 0.5rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 0.9rem;
 }
 
 .editor button {
@@ -481,56 +297,49 @@ footer {
   display: none !important;
 }
 
-
-.add-inner-button,
-.add-course-button {
-  margin-left: 0.5rem;
-  background: #00aa00;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.delete-entry-button {
-  background: transparent;
-  color: red;
-  font-size: 1rem;
-  margin-left: 0.5rem;
-  border: none;
-  cursor: pointer;
-}
-
-
-.boto-admin {
-  margin: 0.5rem auto;
-  display: block;
+/* === FOOTER === */
+footer {
+  text-align: center;
   background: var(--blau);
   color: var(--groc);
-  border: none;
-  border-radius: 50px;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px var(--ombra);
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  margin-top: 3rem;
 }
 
-#editModal input {
-  display: block;
-  width: 90%;
-  margin: 0.5rem auto;
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
 
-#editEsborrar {
-  background: crimson;
-  color: white;
-}
+  .logo img {
+    max-width: 80px;
+    height: auto;
+  }
 
-  
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .bloc {
+    padding: 1.2rem;
+  }
+
+  .acordio-titol {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .acordio-contingut button {
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+
+  .editor {
+    bottom: 10px;
+    right: 10px;
+    width: 90%;
+    max-width: 100%;
+  }
+}
