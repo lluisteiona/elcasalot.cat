@@ -6,7 +6,6 @@
   <title>Esplai El Casalot</title>
   <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/galeria.js"></script>
-  <link rel="icon" href="assets/favicon.png" type="image/png" />
 </head>
 <body>
 
@@ -21,7 +20,7 @@
     <!-- Qui som -->
     <section id="qui-som" class="bloc bloc1">
       <h2>Qui som?</h2>
-      <p>El Casalot és un <strong>esplai laic i inclusiu d’educació en el lleure</strong> on infants, monitores i monitors comparteixen una educació en valors, crítica i lliure. És un lloc on els infants poden desconnectar de la rutina diària i gaudir d’un temps de trobada enriquidor. A través<strong> d’activitats diverses i dinàmiques</strong>, promovem la reflexió sobre temes importants, tot fomentant valors com la cooperació, la convivència i el respecte, sempre des d’una perspectiva lúdica i divertida.</p>
+        <p>El Casalot és un <strong>esplai laic i inclusiu d’educació en el lleure</strong> on infants, monitores i monitors comparteixen una educació en valors, crítica i lliure. És un lloc on els infants poden desconnectar de la rutina diària i gaudir d’un temps de trobada enriquidor. A través<strong> d’activitats diverses i dinàmiques</strong>, promovem la reflexió sobre temes importants, tot fomentant valors com la cooperació, la convivència i el respecte, sempre des d’una perspectiva lúdica i divertida.</p>      
     </section>
 
     <!-- On som -->
@@ -74,70 +73,6 @@
           </div>
         </div>
 
-        <div class="acordio">
-          <button class="acordio-titol">
-            <span>Curs 2023–2024</span>
-            <span class="fletxa">▼</span>
-          </button>
-          <div class="acordio-contingut">
-            <button onclick="requestAccess('campaments2024')">Campaments 2024</button>
-            <button onclick="requestAccess('Dormida2024')">Dormida 2024</button>
-            <button onclick="requestAccess('ColoniesPrimavera2024')">Colònies Primavera 2024</button>
-            <button onclick="requestAccess('ColoniesTardor2023')">Colònies Tardor 2023</button>
-          </div>
-        </div>
-
-        <div class="acordio">
-          <button class="acordio-titol">
-            <span>Curs 2022–2023</span>
-            <span class="fletxa">▼</span>
-          </button>
-
-          <div class="acordio-contingut">
-            <button onclick="requestAccess('campaments2023')">Campaments 2023</button>
-            <button onclick="requestAccess('Dormida2023')">Dormida 2023</button>
-            <button onclick="requestAccess('ColoniesPrimavera2023')">Colònies Primavera 2023</button>
-            <button onclick="requestAccess('ColoniesTardor2022')">Colònies Tardor 2022</button>
-          </div>
-        </div>
-
-        <div class="acordio">
-          <button class="acordio-titol">
-            <span>Curs 2021–2022</span>
-            <span class="fletxa">▼</span>
-          </button>
-
-          <div class="acordio-contingut">
-            <button onclick="requestAccess('campaments2022')">Campaments 2022</button>
-          </div>
-        </div>
-
-        <div class="acordio">
-          <button class="acordio-titol">
-            <span>Curs 2020–2021</span>
-            <span class="fletxa">▼</span>
-          </button>
-
-          <div class="acordio-contingut">
-            <button onclick="requestAccess('campaments2021')">Campaments 2023</button>
-            <button onclick="requestAccess('Dormida2021')">Dormida 2023</button>
-            <button onclick="requestAccess('ColoniesPrimavera2020')">Colònies Primavera 2023</button>
-            <button onclick="requestAccess('ColoniesTardor2020')">Colònies Tardor 2022</button>
-          </div>
-        </div>
-        <div class="acordio">
-          <button class="acordio-titol">
-            <span>Curs 2019–2020</span>
-            <span class="fletxa">▼</span>
-          </button>
-
-          <div class="acordio-contingut">
-            <button onclick="requestAccess('campaments2021')">Campaments 2023</button>
-            <button onclick="requestAccess('Dormida2021')">Dormida 2023</button>
-            <button onclick="requestAccess('ColoniesPrimavera2020')">Colònies Primavera 2023</button>
-            <button onclick="requestAccess('ColoniesTardor2020')">Colònies Tardor 2022</button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -181,13 +116,54 @@
     </div>
   </div>
 
-  <div id="editorGal" class="editor ocult">
-    <h3>Afegir nova entrada a la galeria</h3>
-    <input type="text" id="nomSeccio" placeholder="Ex: Campaments" />
-    <input type="text" id="anySeccio" placeholder="Ex: 2025" />
-    <input type="text" id="linkSeccio" placeholder="Enllaç Google Fotos" />
-    <button onclick="afegirNovaEntrada()">Afegir a la galeria</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const plegables = document.querySelectorAll('.plegable');
+
+      plegables.forEach(bloc => {
+        const titol = bloc.querySelector('.plegable-titol');
+        titol.addEventListener('click', () => {
+          bloc.classList.toggle('open');
+        });
+      });
+    });
+  </script>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h3 id="editTitle">Afegir secció</h3>
+      <input type="text" id="editNom" placeholder="Nom de la secció" />
+      <input type="text" id="editLink" placeholder="Enllaç" />
+      <div class="modal-buttons">
+        <button id="editGuardar">Desar</button>
+        <button id="editEsborrar" style="display:none">Esborrar</button>
+        <button onclick="tancarEditModal()">Cancel·lar</button>
+      </div>
+    </div>
   </div>
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAjRDG6b29e_A-k3qpdHaEgI2ITKUwb4Vk",
+      authDomain: "elcasalot-galeria.firebaseapp.com",
+      projectId: "elcasalot-galeria",
+      storageBucket: "elcasalot-galeria.firebasestorage.app",
+      messagingSenderId: "860088580514",
+      appId: "1:860088580514:web:9cba5546def22f4adc1afb",
+      databaseURL: "https://elcasalot-galeria-default-rtdb.europe-west1.firebasedatabase.app"
+
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
 
 </body>
 </html>
