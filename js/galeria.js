@@ -17,7 +17,7 @@ function desaLinks() {
 }
 
 // 🔑 Accés públic
-const correctPassword = "esplai123";
+const correctPassword = "Casalot1992";
 
 function requestAccess(key) {
   currentKey = key;
