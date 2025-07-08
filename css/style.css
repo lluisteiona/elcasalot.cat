@@ -208,18 +208,17 @@ body {
 }
 
 .acordio-contingut {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 0.5rem;
   background: var(--blanc);
-  max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease, padding 0.3s ease;
   padding: 0 1rem;
 }
 
 .acordio.open .acordio-contingut {
-  max-height: 500px;
+  display: flex;
   padding: 0.8rem 1rem;
 }
 
