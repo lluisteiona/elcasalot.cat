@@ -220,12 +220,16 @@ body {
 .acordio-contingut {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanc);
 }
 
 .acordio.open .acordio-contingut {
-  max-height: 1000px
-  display: flex;
+  max-height: 1000px;  /* suposa prou espai, animació OK */
   padding: 0.8rem 1rem;
 }
 
@@ -238,7 +242,9 @@ body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
+
 
 .acordio-contingut button:hover {
   background: #ffe600;
