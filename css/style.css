@@ -217,19 +217,61 @@ body {
   padding: 0 1rem;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* === MODAL === */
+
+.acordio {
+  border: 1px solid var(--ombra);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px var(--ombra);
+}
+
+.acordio-titol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--blau);
+  color: var(--groc);
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  border-radius: 10px 10px 0 0;
+}
+
+.acordio-titol:hover {
+  background: #002244;
+}
+
 .acordio-contingut {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease, padding 0.3s ease;
-  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   background-color: var(--blanc);
+  padding: 0 1rem;
 }
 
 .acordio.open .acordio-contingut {
-  max-height: 1000px;  /* suposa prou espai, animació OK */
+  max-height: 1000px; /* o qualsevol valor alt per contenir molt contingut */
   padding: 0.8rem 1rem;
 }
 
@@ -245,13 +287,12 @@ body {
   transition: background 0.3s ease;
 }
 
-
 .acordio-contingut button:hover {
   background: #ffe600;
 }
 
 .fletxa {
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
 .acordio.open .fletxa {
