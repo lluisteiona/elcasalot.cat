@@ -426,3 +426,45 @@ footer {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+/* === TEXT ESPLAC === */
+/* Estils per als paràgrafs */
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2em;
+  color: #333;
+}
+
+/* Estils per a les llistes no ordenades */
+ul {
+  list-style-type: disc;
+  padding-left: 2em;
+  margin-bottom: 1.2em;
+}
+
+/* Estils per als ítems de llista */
+ul li {
+  margin-bottom: 0.6em;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* Ressaltar el text en negreta dins de paràgrafs i llistes */
+li strong,
+p strong {
+  color: #004080;
+}
+
+/* Estils per a enllaços */
+a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
