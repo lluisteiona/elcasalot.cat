@@ -217,6 +217,12 @@ body {
   padding: 0 1rem;
 }
 
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
 .acordio.open .acordio-contingut {
   max-height: 1000px
   display: flex;
