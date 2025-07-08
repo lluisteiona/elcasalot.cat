@@ -174,14 +174,14 @@ body {
   object-fit: cover;
 }
 
-/* === ACORDIONS === */
-.acordio-galeria {
+/* === NS === */
+.-galeria {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.acordio {
+. {
   border: 1px solid var(--ombra);
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -189,7 +189,7 @@ body {
   box-shadow: 0 2px 6px var(--ombra);
 }
 
-.acordio-titol {
+.-titol {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -203,11 +203,11 @@ body {
   cursor: pointer;
 }
 
-.acordio-titol:hover {
+.-titol:hover {
   background: #002244;
 }
 
-.acordio-contingut {
+.-contingut {
   display: none;
   flex-direction: column;
   gap: 0.5rem;
@@ -218,6 +218,7 @@ body {
 }
 
 .acordio.open .acordio-contingut {
+  max-height: 1000px
   display: flex;
   padding: 0.8rem 1rem;
 }
