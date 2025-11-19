@@ -1,13 +1,18 @@
+/* =========================================================
+   VARIABLES GLOBALS
+========================================================= */
 :root {
-  --groc: #FFD700;
-  --blau: #003366;
-  --blanc: #ffffff;
-  --negre: #111;
-  --ombra: rgba(0, 0, 0, 0.15);
-  --accent: #007BFF;
+  --color-groc: #FFD700;
+  --color-blau: #003366;
+  --color-blanc: #ffffff;
+  --color-negre: #111;
+  --color-ombra: rgba(0, 0, 0, 0.15);
+  --color-accent: #007BFF;
 }
 
-/* === GLOBAL === */
+/* =========================================================
+   ESTILS GLOBALS
+========================================================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,42 +21,48 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at 20% 30%, #ffe066 0%, transparent 40%),
-              radial-gradient(circle at 80% 70%, #a1c4fd 0%, transparent 50%),
-              linear-gradient(to bottom, #f0f4ff, #fef9e7);
+  color: var(--color-negre);
   min-height: 100vh;
-  color: var(--negre);
-  scroll-behavior: smooth;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+
+  background:
+    radial-gradient(circle at 20% 30%, #ffe066 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, #a1c4fd 0%, transparent 50%),
+    linear-gradient(to bottom, #f0f4ff, #fef9e7);
 }
 
-/* === HEADER FIX I COMPACTE === */
+/* =========================================================
+   CAPÇALERA
+========================================================= */
 .logo {
   position: sticky;
   top: 0;
   z-index: 1000;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background-color: var(--blau);
-  color: var(--groc);
+
   padding: 1rem 1.5rem;
-  transition: all 0.3s ease;
+  background-color: var(--color-blau);
+  color: var(--color-groc);
+
+  transition: 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .logo img {
   height: 70px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .logo h1 {
   font-size: 2.5rem;
-  margin: 0;
-  text-align: center;
   flex: 1;
-  transition: font-size 0.3s ease;
+  text-align: center;
+  transition: 0.3s ease;
 }
 
 .logo.compacte {
@@ -65,25 +76,27 @@ body {
 }
 
 .logo.compacte h1 {
-  font-size: 0rem;
+  font-size: 0;
 }
 
-/* === CONTAINER === */
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
 .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem;
+
   display: grid;
-  grid-template-columns: 1fr 0.7fr;
   gap: 0.5rem;
+  grid-template-columns: 1fr 0.7fr;
   grid-template-areas:
     "bloc1 contacte"
     "bloc2 galeria"
     "bloc3 galeria"
     "bloc4 galeria"
-    "bloc5 galeria"
     "bloc6 galeria";
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
 }
 
 .bloc1 { grid-area: bloc1; }
@@ -94,30 +107,31 @@ body {
 .bloc6 { grid-area: bloc6; }
 .galeria { grid-area: galeria; }
 
-/* === BLOCS === */
+/* =========================================================
+   BLOCS GENERALS
+========================================================= */
 .bloc {
-  background: var(--blanc);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px var(--ombra);
-  padding: 2rem;
   width: 100%;
-  max-width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--color-blanc);
+  border-radius: 16px;
+  padding: 2rem;
+
+  box-shadow: 0 8px 24px var(--color-ombra);
+  transition: 0.3s ease;
   animation: fadeIn 0.6s ease-in-out;
 }
 
 .bloc:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 30px var(--ombra);
+  box-shadow: 0 12px 30px var(--color-ombra);
 }
 
 .bloc h2 {
-  color: var(--blau);
-  margin-top: 0;
+  color: var(--color-blau);
 }
 
 .bloc a {
-  color: var(--accent);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
@@ -125,14 +139,17 @@ body {
   text-decoration: underline;
 }
 
-/* === SLIDER === */
+/* =========================================================
+   SLIDER
+========================================================= */
 .slider {
   position: relative;
   max-width: 400px;
   margin: 2rem auto;
   overflow: hidden;
+
   border-radius: 12px;
-  box-shadow: 0 6px 20px var(--ombra);
+  box-shadow: 0 6px 20px var(--color-ombra);
 }
 
 .slider-inner {
@@ -142,30 +159,35 @@ body {
 
 .slider-inner img {
   width: 100%;
-  object-fit: cover;
   aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .slider-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--blau);
-  color: var(--groc);
   border: none;
+
+  background: var(--color-blau);
+  color: var(--color-groc);
+
   font-size: 2rem;
   padding: 0.3rem 0.8rem;
   cursor: pointer;
-  z-index: 10;
-  border-radius: 8px;
   opacity: 0.7;
+
+  border-radius: 8px;
+  z-index: 10;
 }
 
 .slider-btn:hover { opacity: 1; }
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
 
-/* === MAPA === */
+/* =========================================================
+   MAPA
+========================================================= */
 .mapa {
   width: 100%;
   max-height: 300px;
@@ -174,86 +196,33 @@ body {
   object-fit: cover;
 }
 
-/* === NS === */
-.-galeria {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-. {
-  border: 1px solid var(--ombra);
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  overflow: hidden;
-  box-shadow: 0 2px 6px var(--ombra);
-}
-
-.-titol {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--blau);
-  color: var(--groc);
-  border: none;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-  width: 100%;
-  cursor: pointer;
-}
-
-.-titol:hover {
-  background: #002244;
-}
-
-.-contingut {
-  display: none;
-  flex-direction: column;
-  gap: 0.5rem;
-  background: var(--blanc);
-  overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.3s ease;
-  padding: 0 1rem;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* === MODAL === */
-
+/* =========================================================
+   ACORDIONS GALERIA
+========================================================= */
 .acordio {
-  border: 1px solid var(--ombra);
+  background: #f9f9f9;
   border-radius: 10px;
-  overflow: hidden;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 6px var(--ombra);
   margin-bottom: 1.2rem;
+  box-shadow: 0 2px 6px var(--color-ombra);
+  overflow: hidden;
 }
 
 .acordio-titol {
+  width: 100%;
+  padding: 0.8rem 1rem;
+
+  background: var(--color-blau);
+  color: var(--color-groc);
+  font-weight: bold;
+
+  border: none;
+  cursor: pointer;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 0.8rem 1rem;
-  background: var(--blau);
-  color: var(--groc);
-  border: none;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  border-radius: 10px 10px 0 0;
+
+  transition: 0.3s;
 }
 
 .acordio-titol:hover {
@@ -263,29 +232,34 @@ body {
 .acordio-contingut {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, padding 0.3s ease;
+
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: var(--blanc);
+
+  background: var(--color-blanc);
   padding: 0 1rem;
+
+  transition: max-height 0.5s ease, padding 0.3s ease;
 }
 
 .acordio.open .acordio-contingut {
-  max-height: 1000px; /* o qualsevol valor alt per contenir molt contingut */
+  max-height: 1000px;
   padding: 0.8rem 1rem;
 }
 
 .acordio-contingut button {
-  background: var(--groc);
-  color: var(--blau);
+  padding: 0.8rem;
   border: none;
   border-radius: 8px;
-  padding: 0.8rem;
-  font-size: 1rem;
+
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+
+  background: var(--color-groc);
+  color: var(--color-blau);
+
+  transition: 0.3s;
 }
 
 .acordio-contingut button:hover {
@@ -300,35 +274,46 @@ body {
   transform: rotate(180deg);
 }
 
-/* === MODAL === */
+/* =========================================================
+   MODALS
+========================================================= */
 .modal {
-  display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  display: none;
+
   background: rgba(0, 0, 0, 0.6);
+
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
 
 .modal-content {
-  background: var(--blanc);
+  width: 90%;
+  max-width: 400px;
+
   padding: 2rem;
   border-radius: 12px;
+
+  background: var(--color-blanc);
   text-align: center;
-  max-width: 400px;
-  width: 90%;
+
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .modal-content input {
-  padding: 0.8rem;
   width: 80%;
+  padding: 0.8rem;
   font-size: 1rem;
+
+  margin-top: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-top: 1rem;
 }
 
 .modal-buttons {
@@ -338,10 +323,13 @@ body {
 .modal-buttons button {
   margin: 0.5rem;
   padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+
   border: none;
-  background: var(--blau);
-  color: var(--blanc);
+  border-radius: 8px;
+
+  background: var(--color-blau);
+  color: var(--color-blanc);
+
   font-weight: bold;
   cursor: pointer;
 }
@@ -352,51 +340,49 @@ body {
 
 #editEsborrar {
   background: crimson;
-  color: white;
 }
 
-/* === FOOTER === */
-footer {
-  text-align: center;
-  background: var(--blau);
-  color: var(--groc);
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  margin-top: 3rem;
-}
-
-/* === ADMIN EDITOR === */
+/* =========================================================
+   EDITOR ADMIN
+========================================================= */
 .editor {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: var(--blanc);
-  border: 1px solid var(--ombra);
+
   padding: 1rem;
+  max-width: 280px;
+
+  background: var(--color-blanc);
   border-radius: 12px;
-  box-shadow: 0 4px 10px var(--ombra);
-  z-index: 999;
+  border: 1px solid var(--color-ombra);
+
+  box-shadow: 0 4px 10px var(--color-ombra);
+
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  max-width: 280px;
+
+  z-index: 999;
 }
 
 .editor input {
   padding: 0.5rem;
+  font-size: 0.9rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 0.9rem;
 }
 
 .editor button {
-  background: var(--blau);
-  color: var(--groc);
-  border: none;
   padding: 0.5rem;
+
+  background: var(--color-blau);
+  color: var(--color-groc);
+
   border-radius: 8px;
-  font-weight: bold;
+  border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .editor button:hover {
@@ -407,34 +393,63 @@ footer {
   display: none !important;
 }
 
-/* === BOTÓ + ADMIN === */
 .boto-admin {
-  margin: 0.5rem auto;
-  display: block;
-  background: var(--blau);
-  color: var(--groc);
-  border: none;
-  border-radius: 50px;
-  font-size: 1.5rem;
   width: 40px;
   height: 40px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px var(--ombra);
-}
 
-#editModal input {
   display: block;
-  width: 90%;
   margin: 0.5rem auto;
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+
+  font-size: 1.5rem;
+
+  background: var(--color-blau);
+  color: var(--color-groc);
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--color-ombra);
 }
 
-/* === RESPONSIVE === */
+/* =========================================================
+   TIPOGRAFIA ESPLAC
+========================================================= */
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2em;
+  color: #333;
+}
+
+ul {
+  padding-left: 2em;
+  margin-bottom: 1.2em;
+  list-style-type: disc;
+}
+
+ul li {
+  font-size: 1.05rem;
+  margin-bottom: 0.6em;
+}
+
+strong {
+  color: #004080;
+}
+
+a {
+  color: #007acc;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 @media (max-width: 768px) {
   .logo {
-    flex-direction: row;
     justify-content: space-between;
     padding: 0.8rem 1rem;
   }
@@ -454,20 +469,19 @@ footer {
   }
 
   .bloc {
-    width: 100%;
     max-width: 95%;
     margin-bottom: 1rem;
   }
 
   .acordio-contingut button {
-    font-size: 0.95rem;
     padding: 0.7rem;
+    font-size: 0.95rem;
   }
 
   .editor {
+    width: 90%;
     bottom: 10px;
     right: 10px;
-    width: 90%;
   }
 
   .mapa {
@@ -475,50 +489,10 @@ footer {
   }
 }
 
-/* === ANIMACIÓ === */
+/* =========================================================
+   ANIMACIONS
+========================================================= */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-
-/* === TEXT ESPLAC === */
-/* Estils per als paràgrafs */
-p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1.2em;
-  color: #333;
-}
-
-/* Estils per a les llistes no ordenades */
-ul {
-  list-style-type: disc;
-  padding-left: 2em;
-  margin-bottom: 1.2em;
-}
-
-/* Estils per als ítems de llista */
-ul li {
-  margin-bottom: 0.6em;
-  font-size: 1.05rem;
-  line-height: 1.5;
-  color: #222;
-}
-
-/* Ressaltar el text en negreta dins de paràgrafs i llistes */
-li strong,
-p strong {
-  color: #004080;
-}
-
-/* Estils per a enllaços */
-a {
-  color: #007acc;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
