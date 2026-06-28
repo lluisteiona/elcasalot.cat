@@ -1,0 +1,740 @@
+/* =========================================================
+   VARIABLES GLOBALS I CONFIGURACIÓ
+========================================================= */
+:root {
+  /* Paleta de colors */
+  --color-groc: #FFD700;
+  --color-blau: #003366;
+  --color-blanc: #ffffff;
+  --color-negre: #111;
+  --color-gris-clar: #f9f9f9;
+  --color-accent: #007BFF;
+  
+  /* Ombres */
+  --ombra-suau: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --ombra-mitjana: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --ombra-forta: 0 12px 30px rgba(0, 0, 0, 0.2);
+  
+  /* Transicions */
+  --transicio-rapida: 0.2s ease;
+  --transicio-normal: 0.3s ease;
+  --transicio-lenta: 0.5s ease;
+  
+  /* Bordes arrodonits */
+  --radi-petit: 8px;
+  --radi-mitjà: 12px;
+  --radi-gran: 16px;
+  
+  /* Espaiats */
+  --espai-xs: 0.5rem;
+  --espai-sm: 1rem;
+  --espai-md: 1.5rem;
+  --espai-lg: 2rem;
+  --espai-xl: 3rem;
+}
+
+/* =========================================================
+   RESET I ESTILS BASE
+========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color-negre);
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  line-height: 1.6;
+  
+  /* Fons gradient millorat */
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 224, 102, 0.4) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(161, 196, 253, 0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #f0f4ff 0%, #fef9e7 100%);
+  background-attachment: fixed;
+}
+
+/* =========================================================
+   CAPÇALERA AMB STICKY
+========================================================= */
+.logo {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espai-sm);
+  
+  padding: var(--espai-sm) var(--espai-md);
+  background-color: var(--color-blau);
+  color: var(--color-groc);
+  
+  box-shadow: var(--ombra-suau);
+  transition: all var(--transicio-normal);
+  will-change: padding, box-shadow;
+}
+
+.logo img {
+  height: 70px;
+  transition: all var(--transicio-normal);
+  will-change: transform, opacity;
+}
+
+.logo h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  flex: 1;
+  text-align: center;
+  transition: all var(--transicio-normal);
+  will-change: font-size;
+}
+
+/* Estat compacte al fer scroll */
+.logo.compacte {
+  padding: var(--espai-xs) var(--espai-sm);
+  box-shadow: var(--ombra-mitjana);
+}
+
+.logo.compacte img {
+  opacity: 0;
+  transform: scale(0.7);
+  pointer-events: none;
+}
+
+.logo.compacte h1 {
+  font-size: 1.5rem;
+}
+
+/* =========================================================
+   LAYOUT RESPONSIVE AMB GRID
+========================================================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--espai-lg);
+  
+  display: grid;
+  gap: var(--espai-sm);
+  grid-template-columns: 1fr 0.7fr;
+  grid-template-areas:
+    "bloc1 contacte"
+    "bloc2 galeria"
+    "bloc3 galeria"
+    "bloc4 galeria"
+    "bloc6 galeria";
+}
+
+.bloc1 { grid-area: bloc1; }
+.bloc2 { grid-area: bloc2; }
+.bloc3 { grid-area: bloc3; }
+.bloc4 { grid-area: bloc4; }
+.bloc5 { grid-area: contacte; }
+.bloc6 { grid-area: bloc6; }
+.galeria { grid-area: galeria; }
+
+/* =========================================================
+   BLOCS AMB MILLORES D'ANIMACIÓ
+========================================================= */
+.bloc {
+  width: 100%;
+  background: var(--color-blanc);
+  border-radius: var(--radi-gran);
+  padding: var(--espai-lg);
+  
+  box-shadow: var(--ombra-mitjana);
+  transition: all var(--transicio-normal);
+  will-change: transform, box-shadow;
+  
+  /* Animació d'entrada */
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.bloc:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--ombra-forta);
+}
+
+.bloc h2 {
+  color: var(--color-blau);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: var(--espai-sm);
+}
+
+.bloc p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: var(--espai-sm);
+  color: #333;
+}
+
+.bloc ul {
+  padding-left: 2em;
+  margin-bottom: var(--espai-sm);
+  list-style-type: disc;
+}
+
+.bloc ul li {
+  font-size: 1.05rem;
+  margin-bottom: var(--espai-xs);
+  line-height: 1.7;
+}
+
+.bloc strong {
+  color: #004080;
+  font-weight: 600;
+}
+
+.bloc a {
+  color: var(--color-accent);
+  text-decoration: none;
+  position: relative;
+  transition: color var(--transicio-rapida);
+}
+
+.bloc a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transicio-normal);
+}
+
+.bloc a:hover {
+  color: #0056b3;
+}
+
+.bloc a:hover::after {
+  width: 100%;
+}
+
+/* =========================================================
+   SLIDER MILLORAT
+========================================================= */
+.slider {
+  position: relative;
+  max-width: 400px;
+  margin: var(--espai-lg) auto;
+  overflow: hidden;
+  border-radius: var(--radi-mitjà);
+  box-shadow: var(--ombra-mitjana);
+}
+
+.slider-inner {
+  display: flex;
+  transition: transform var(--transicio-lenta) cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.slider-inner img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  
+  background: rgba(0, 51, 102, 0.8);
+  backdrop-filter: blur(4px);
+  color: var(--color-groc);
+  
+  font-size: 2rem;
+  padding: var(--espai-xs) 0.8rem;
+  cursor: pointer;
+  opacity: 0;
+  
+  border-radius: var(--radi-petit);
+  z-index: 10;
+  transition: all var(--transicio-rapida);
+  will-change: opacity, transform;
+}
+
+.slider:hover .slider-btn {
+  opacity: 0.9;
+}
+
+.slider-btn:hover {
+  opacity: 1 !important;
+  background: var(--color-blau);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
+
+/* =========================================================
+   MAPA
+========================================================= */
+.mapa {
+  width: 100%;
+  max-height: 300px;
+  border-radius: var(--radi-mitjà);
+  margin: var(--espai-sm) 0;
+  object-fit: cover;
+  box-shadow: var(--ombra-suau);
+  transition: transform var(--transicio-normal);
+}
+
+.mapa:hover {
+  transform: scale(1.02);
+}
+
+/* =========================================================
+   ACORDIONS GALERIA MILLORATS
+========================================================= */
+.acordio {
+  background: var(--color-gris-clar);
+  border-radius: 10px;
+  margin-bottom: var(--espai-sm);
+  box-shadow: var(--ombra-suau);
+  overflow: hidden;
+  transition: all var(--transicio-normal);
+}
+
+.acordio:hover {
+  box-shadow: var(--ombra-mitjana);
+}
+
+.acordio-titol {
+  width: 100%;
+  padding: var(--espai-sm);
+  
+  background: var(--color-blau);
+  color: var(--color-groc);
+  font-weight: bold;
+  font-size: 1.1rem;
+  
+  border: none;
+  cursor: pointer;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  transition: background var(--transicio-rapida);
+}
+
+.acordio-titol:hover {
+  background: #002244;
+}
+
+.acordio-titol:active {
+  transform: scale(0.98);
+}
+
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--espai-xs);
+  
+  background: var(--color-blanc);
+  padding: 0 var(--espai-sm);
+  
+  transition: all var(--transicio-lenta) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.acordio.open .acordio-contingut {
+  max-height: 1000px;
+  padding: var(--espai-sm);
+}
+
+.acordio-contingut button {
+  padding: var(--espai-sm);
+  border: none;
+  border-radius: var(--radi-petit);
+  
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  
+  background: var(--color-groc);
+  color: var(--color-blau);
+  
+  transition: all var(--transicio-rapida);
+  position: relative;
+  overflow: hidden;
+}
+
+.acordio-contingut button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.acordio-contingut button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.acordio-contingut button:hover {
+  background: #ffc700;
+  transform: translateY(-2px);
+  box-shadow: var(--ombra-suau);
+}
+
+.acordio-contingut button:active {
+  transform: translateY(0);
+}
+
+.fletxa {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.acordio.open .fletxa {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   MODALS MILLORATS
+========================================================= */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 400px;
+  
+  padding: var(--espai-lg);
+  border-radius: var(--radi-mitjà);
+  
+  background: var(--color-blanc);
+  text-align: center;
+  
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-content h3 {
+  color: var(--color-blau);
+  margin-bottom: var(--espai-sm);
+  font-size: 1.5rem;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: var(--espai-sm);
+  font-size: 1rem;
+  
+  margin-top: var(--espai-sm);
+  border-radius: var(--radi-petit);
+  border: 2px solid #e0e0e0;
+  
+  transition: border-color var(--transicio-rapida);
+}
+
+.modal-content input:focus {
+  outline: none;
+  border-color: var(--color-blau);
+}
+
+.modal-buttons {
+  margin-top: var(--espai-md);
+  display: flex;
+  gap: var(--espai-xs);
+  justify-content: center;
+}
+
+.modal-buttons button {
+  padding: 0.7rem 1.5rem;
+  
+  border: none;
+  border-radius: var(--radi-petit);
+  
+  background: var(--color-blau);
+  color: var(--color-blanc);
+  
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  
+  transition: all var(--transicio-rapida);
+}
+
+.modal-buttons button:hover {
+  background: #001f3f;
+  transform: translateY(-2px);
+  box-shadow: var(--ombra-suau);
+}
+
+.modal-buttons button:active {
+  transform: translateY(0);
+}
+
+#editEsborrar {
+  background: #dc3545;
+}
+
+#editEsborrar:hover {
+  background: #c82333;
+}
+
+/* =========================================================
+   EDITOR ADMIN
+========================================================= */
+.editor {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  
+  padding: var(--espai-sm);
+  max-width: 280px;
+  
+  background: var(--color-blanc);
+  border-radius: var(--radi-mitjà);
+  border: 1px solid #e0e0e0;
+  
+  box-shadow: var(--ombra-mitjana);
+  
+  display: flex;
+  flex-direction: column;
+  gap: var(--espai-xs);
+  
+  z-index: 999;
+  animation: slideInRight 0.4s ease;
+}
+
+.editor input {
+  padding: var(--espai-xs);
+  font-size: 0.9rem;
+  border-radius: var(--radi-petit);
+  border: 1px solid #ccc;
+  transition: border-color var(--transicio-rapida);
+}
+
+.editor input:focus {
+  outline: none;
+  border-color: var(--color-blau);
+}
+
+.editor button {
+  padding: var(--espai-xs);
+  
+  background: var(--color-blau);
+  color: var(--color-groc);
+  
+  border-radius: var(--radi-petit);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  
+  transition: all var(--transicio-rapida);
+}
+
+.editor button:hover {
+  background: #001f3f;
+  transform: translateY(-1px);
+}
+
+.ocult {
+  display: none !important;
+}
+
+.boto-admin {
+  width: 40px;
+  height: 40px;
+  
+  display: block;
+  margin: var(--espai-xs) auto;
+  
+  font-size: 1.5rem;
+  
+  background: var(--color-blau);
+  color: var(--color-groc);
+  
+  border: none;
+  border-radius: 50%;
+  
+  cursor: pointer;
+  box-shadow: var(--ombra-suau);
+  
+  transition: all var(--transicio-rapida);
+}
+
+.boto-admin:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: var(--ombra-mitjana);
+}
+
+.boto-admin:active {
+  transform: scale(0.95);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer {
+  text-align: center;
+  padding: var(--espai-lg);
+  background: var(--color-blau);
+  color: var(--color-groc);
+  margin-top: var(--espai-xl);
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+@media (max-width: 768px) {
+  .logo {
+    justify-content: space-between;
+    padding: var(--espai-sm);
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: var(--espai-sm);
+    gap: var(--espai-sm);
+  }
+  
+  .bloc {
+    padding: var(--espai-md);
+  }
+  
+  .acordio-contingut button {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+  
+  .editor {
+    width: 90%;
+    max-width: none;
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+  }
+  
+  .mapa {
+    max-height: 200px;
+  }
+  
+  .slider {
+    max-width: 100%;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: var(--espai-md);
+  }
+}
+
+/* =========================================================
+   ANIMACIONS
+========================================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================================================
+   MILLORES D'ACCESSIBILITAT
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visible per teclat */
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline-color: var(--color-groc);
+}
