@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --color-blau: #003366;
+  --color-blau-fosc: #001f3f;
+  --color-blau-mig: #002244;
+  --color-groc: #FFD700;
+  --color-groc-fosc: #ffc700;
+  --color-accent: #007BFF;
+  --color-gris: #f9f9f9;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,224,102,0.4) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(161,196,253,0.3) 0%, transparent 50%),
+      linear-gradient(135deg, #f0f4ff 0%, #fef9e7 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+/* Animacions */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fadeInUp  { animation: fadeInUp  0.6s ease-out backwards; }
+.animate-scaleIn   { animation: scaleIn   0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.animate-fadeIn    { animation: fadeIn    0.3s ease; }
+
+/* Slider inner (no Tailwind equivalent for translate-X arbitrary) */
+.slider-inner {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.slider-inner img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Acordió max-height transition */
+.acordio-contingut {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1),
+              padding    0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.acordio-contingut.open {
+  max-height: 1000px;
+}
+
+/* Fletxa rotació */
+.fletxa { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); display: inline-block; }
+.fletxa.open { transform: rotate(180deg); }
+
+/* Ripple effect als botons de secció */
+.seccio-btn {
+  position: relative;
+  overflow: hidden;
+}
+.seccio-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  transform: translate(-50%,-50%);
+  transition: width 0.6s, height 0.6s;
+}
+.seccio-btn:hover::before { width: 300px; height: 300px; }
+
+/* Logo compacte */
+.logo-compacte img { opacity: 0; transform: scale(0.7); pointer-events: none; }
+.logo-img { transition: opacity 0.3s ease, transform 0.3s ease; }
+
+/* Link underline animat */
+.link-animat {
+  position: relative;
+  color: #007BFF;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.link-animat::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: #007BFF;
+  transition: width 0.3s ease;
+}
+.link-animat:hover::after { width: 100%; }
+.link-animat:hover { color: #0056b3; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

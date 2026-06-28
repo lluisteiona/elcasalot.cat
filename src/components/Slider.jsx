@@ -1,73 +1,37 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { CONFIG } from "../config/constants";
+import { useSlider } from '../hooks/useSlider';
+import { SLIDER_IMAGES } from '../config/constants';
 
-export default function Slider({ images }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const timerRef = useRef(null);
-  const slideImages = images || CONFIG.slider.images;
-
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % slideImages.length);
-  }, [slideImages.length]);
-
-  const prevSlide = useCallback(() => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + slideImages.length) % slideImages.length
-    );
-  }, [slideImages.length]);
-
-  const startAutoPlay = useCallback(() => {
-    timerRef.current = setInterval(nextSlide, CONFIG.slider.autoPlayInterval);
-  }, [nextSlide]);
-
-  const resetAutoPlay = useCallback(() => {
-    clearInterval(timerRef.current);
-    startAutoPlay();
-  }, [startAutoPlay]);
-
-  useEffect(() => {
-    startAutoPlay();
-    return () => clearInterval(timerRef.current);
-  }, [startAutoPlay]);
-
-  const handlePrev = () => {
-    prevSlide();
-    resetAutoPlay();
-  };
-
-  const handleNext = () => {
-    nextSlide();
-    resetAutoPlay();
-  };
+export default function Slider() {
+  const { current, goNext, goPrev } = useSlider(SLIDER_IMAGES.length);
 
   return (
-    <div className="slider" id="slider-que-fem">
+    <div className="relative max-w-[400px] mx-auto my-6 overflow-hidden rounded-xl shadow-md group">
+      {/* Track */}
       <div
         className="slider-inner"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        style={{ transform: `translateX(-${current * 100}%)` }}
       >
-        {slideImages.map((imgName, i) => (
-          <img
-            key={i}
-            src={`assets/que-fem/${imgName}`}
-            alt={`Foto ${i + 1}`}
-          />
+        {SLIDER_IMAGES.map((img, i) => (
+          <img key={i} src={`assets/que-fem/${img}`} alt={`Foto ${i + 1}`} />
         ))}
       </div>
-      <button
-        className="slider-btn prev"
-        aria-label="Imatge anterior"
-        onClick={handlePrev}
-      >
-        &#10094;
-      </button>
-      <button
-        className="slider-btn next"
-        aria-label="Següent imatge"
-        onClick={handleNext}
-      >
-        &#10095;
-      </button>
+
+      {/* Botons prev/next */}
+      {[
+        { label: '❮', side: 'left-2',  action: goPrev, aria: 'Imatge anterior' },
+        { label: '❯', side: 'right-2', action: goNext, aria: 'Imatge següent'  },
+      ].map(({ label, side, action, aria }) => (
+        <button
+          key={side}
+          aria-label={aria}
+          onClick={action}
+          className={`absolute top-1/2 -translate-y-1/2 ${side} opacity-0 group-hover:opacity-90 
+            bg-[#003366]/80 backdrop-blur text-[#FFD700] text-2xl px-3 py-1 rounded-lg 
+            transition-all duration-200 hover:opacity-100 hover:scale-110 active:scale-95 z-10`}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }

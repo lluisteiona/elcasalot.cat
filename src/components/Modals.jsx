@@ -1,160 +1,152 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-/* ── Modal genèric ────────────────────────────────────── */
-function Modal({ id, isOpen, onClose, children }) {
+/* ── Modal base ───────────────────────────────────────── */
+function Modal({ isOpen, onClose, children }) {
   useEffect(() => {
     if (!isOpen) return;
-    const handler = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    const handler = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
     <div
-      id={id}
-      className="modal"
-      style={{ display: "flex" }}
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-      role="dialog"
+      className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn"
+      onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="modal-content">{children}</div>
+      <div className="bg-white rounded-xl shadow-2xl w-[90%] max-w-sm p-6 text-center animate-scaleIn">
+        {children}
+      </div>
     </div>
   );
 }
 
-/* ── Modal de contrasenya de galeria ─────────────────── */
+/* ── Botons estàndard del modal ───────────────────────── */
+function ModalBtn({ onClick, variant = 'primary', children }) {
+  const base = 'px-5 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0';
+  const variants = {
+    primary: 'bg-[#003366] text-white hover:bg-[#001f3f]',
+    danger:  'bg-red-600 text-white hover:bg-red-700',
+    ghost:   'bg-gray-100 text-gray-700 hover:bg-gray-200',
+  };
+  return (
+    <button onClick={onClick} className={`${base} ${variants[variant]}`}>
+      {children}
+    </button>
+  );
+}
+
+/* ── Input estàndard ──────────────────────────────────── */
+function ModalInput({ inputRef, ...props }) {
+  return (
+    <input
+      ref={inputRef}
+      className="w-full mt-3 px-3 py-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#003366] transition-colors"
+      {...props}
+    />
+  );
+}
+
+/* ── Modal contrasenya galeria ────────────────────────── */
 export function PasswordModal({ isOpen, onClose, onValidate }) {
-  const [value, setValue] = useState("");
-  const inputRef = useRef(null);
+  const [val, setVal] = useState('');
+  const ref = useRef(null);
 
   useEffect(() => {
-    if (isOpen) {
-      setValue("");
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
+    if (isOpen) { setVal(''); setTimeout(() => ref.current?.focus(), 50); }
   }, [isOpen]);
 
-  const handleSubmit = () => onValidate(value.trim());
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
   return (
-    <Modal id="passwordModal" isOpen={isOpen} onClose={onClose}>
-      <h3>Accés a la galeria</h3>
-      <input
-        ref={inputRef}
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <h3 className="text-[#003366] text-xl font-bold mb-1">Accés a la galeria</h3>
+      <ModalInput
+        inputRef={ref}
         type="password"
         placeholder="Contrasenya"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && onValidate(val.trim())}
         aria-label="Contrasenya d'accés"
       />
-      <div className="modal-buttons">
-        <button onClick={handleSubmit}>Entrar</button>
-        <button onClick={onClose}>Cancel·lar</button>
+      <div className="flex gap-2 justify-center mt-4">
+        <ModalBtn onClick={() => onValidate(val.trim())}>Entrar</ModalBtn>
+        <ModalBtn onClick={onClose} variant="ghost">Cancel·lar</ModalBtn>
       </div>
     </Modal>
   );
 }
 
-/* ── Modal d'administració ───────────────────────────── */
+/* ── Modal admin ──────────────────────────────────────── */
 export function AdminModal({ isOpen, onClose, onValidate }) {
-  const [password, setPassword] = useState("");
-  const inputRef = useRef(null);
+  const [val, setVal] = useState('');
+  const ref = useRef(null);
 
   useEffect(() => {
-    if (isOpen) {
-      setPassword("");
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
+    if (isOpen) { setVal(''); setTimeout(() => ref.current?.focus(), 50); }
   }, [isOpen]);
 
-  const handleSubmit = () => onValidate(password.trim());
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSubmit();
-  };
-
   return (
-    <Modal id="adminPanel" isOpen={isOpen} onClose={onClose}>
-      <h3>Accés administració</h3>
-      <input
-        ref={inputRef}
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <h3 className="text-[#003366] text-xl font-bold mb-1">Accés administració</h3>
+      <ModalInput
+        inputRef={ref}
         type="password"
-        id="adminPassword"
         placeholder="Contrasenya"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        onKeyDown={handleKeyDown}
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && onValidate(val.trim())}
         aria-label="Contrasenya d'administració"
       />
-      <div className="modal-buttons">
-        <button onClick={handleSubmit}>Entrar</button>
-        <button onClick={onClose}>Cancel·lar</button>
+      <div className="flex gap-2 justify-center mt-4">
+        <ModalBtn onClick={() => onValidate(val.trim())}>Entrar</ModalBtn>
+        <ModalBtn onClick={onClose} variant="ghost">Cancel·lar</ModalBtn>
       </div>
     </Modal>
   );
 }
 
-/* ── Modal d'edició de secció ────────────────────────── */
+/* ── Modal edició secció ──────────────────────────────── */
 export function EditModal({ isOpen, onClose, config, onSave, onDelete }) {
-  const [nom, setNom] = useState("");
-  const [link, setLink] = useState("");
-  const nomRef = useRef(null);
+  const [nom, setNom]   = useState('');
+  const [link, setLink] = useState('');
+  const ref = useRef(null);
 
   useEffect(() => {
     if (isOpen && config) {
-      setNom(config.nom || "");
-      setLink(config.link || "");
-      setTimeout(() => nomRef.current?.focus(), 50);
+      setNom(config.nom || '');
+      setLink(config.link || '');
+      setTimeout(() => ref.current?.focus(), 50);
     }
   }, [isOpen, config]);
 
   const handleSave = () => {
-    if (!nom.trim() || !link.trim()) {
-      alert("Has d'omplir tots els camps.");
-      return;
-    }
+    if (!nom.trim() || !link.trim()) { alert("Has d'omplir tots els camps."); return; }
     onSave(nom.trim(), link.trim());
   };
 
-  const handleDelete = () => {
-    if (window.confirm("Segur que vols esborrar aquesta secció?")) {
-      onDelete();
-    }
-  };
-
   return (
-    <Modal id="editModal" isOpen={isOpen} onClose={onClose}>
-      <h3>{config?.titol || "Editar secció"}</h3>
-      <input
-        ref={nomRef}
-        type="text"
-        placeholder="Nom de la secció"
-        value={nom}
-        onChange={(e) => setNom(e.target.value)}
-        aria-label="Nom de la secció"
-      />
-      <input
-        type="text"
-        placeholder="Enllaç"
-        value={link}
-        onChange={(e) => setLink(e.target.value)}
-        aria-label="Enllaç de la secció"
-      />
-      <div className="modal-buttons">
-        <button onClick={handleSave}>Desar</button>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <h3 className="text-[#003366] text-xl font-bold mb-1">
+        {config?.titol || 'Editar secció'}
+      </h3>
+      <ModalInput inputRef={ref} type="text" placeholder="Nom de la secció"
+        value={nom} onChange={(e) => setNom(e.target.value)} />
+      <ModalInput type="text" placeholder="Enllaç (URL)"
+        value={link} onChange={(e) => setLink(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && handleSave()} />
+      <div className="flex gap-2 justify-center mt-4 flex-wrap">
+        <ModalBtn onClick={handleSave}>Desar</ModalBtn>
         {onDelete && (
-          <button id="editEsborrar" onClick={handleDelete}>
+          <ModalBtn
+            variant="danger"
+            onClick={() => window.confirm('Segur que vols esborrar?') && onDelete()}
+          >
             Esborrar
-          </button>
+          </ModalBtn>
         )}
-        <button onClick={onClose}>Cancel·lar</button>
+        <ModalBtn onClick={onClose} variant="ghost">Cancel·lar</ModalBtn>
       </div>
     </Modal>
   );
