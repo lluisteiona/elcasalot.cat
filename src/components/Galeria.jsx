@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Bloc, { H2 } from './Bloc';
 import Acordio from './Acordio';
-import Bloc from './Bloc';
+import { C } from '../config/constants';
 
 export default function Galeria({
   galeria, isAdmin,
@@ -15,10 +16,10 @@ export default function Galeria({
   });
 
   return (
-    <Bloc id="galeria" className="col-span-1 md:col-span-1 row-span-5" style={{ gridArea: 'galeria' }}>
-      <h2 className="text-[#003366] text-2xl font-bold mb-4">Galeria</h2>
+    <Bloc id="galeria" style={{ gridArea: 'galeria' }}>
+      <H2>Galeria</H2>
 
-      {cursosOrdenats.map((etiqueta) => (
+      {cursosOrdenats.map(etiqueta => (
         <Acordio
           key={etiqueta}
           etiqueta={etiqueta}
@@ -34,10 +35,18 @@ export default function Galeria({
 
       {isAdmin && (
         <button
+          className="boto-admin"
           onClick={onAfegirCurs}
-          className="block mx-auto mt-2 w-9 h-9 rounded-full bg-[#003366] text-[#FFD700] text-xl font-bold
-            hover:scale-110 hover:rotate-90 active:scale-95 transition-all duration-200 shadow-sm"
-          title="Afegir curs"
+          title="Afegir curs nou"
+          style={{
+            display: 'block', margin: '0.5rem auto',
+            width: '36px', height: '36px', borderRadius: '50%',
+            background: C.blau, color: C.groc,
+            border: 'none', fontSize: '1.4rem', fontWeight: 'bold',
+            cursor: 'pointer', lineHeight: '36px', textAlign: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            fontFamily: 'inherit',
+          }}
         >
           +
         </button>

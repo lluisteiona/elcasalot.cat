@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output (gh-pages ho gestiona automàticament)
+# NO posem /build aquí perquè gh-pages necessita accedir-hi
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*

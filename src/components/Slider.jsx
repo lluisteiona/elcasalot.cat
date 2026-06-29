@@ -1,37 +1,40 @@
-import { useSlider } from '../hooks/useSlider';
-import { SLIDER_IMAGES } from '../config/constants';
+import { useSlider } from '../hooks';
+import { C } from '../config/constants';
 
-export default function Slider() {
-  const { current, goNext, goPrev } = useSlider(SLIDER_IMAGES.length);
+// Suporta: nom fitxer local, URL https, o base64
+function resolveImg(src) {
+  if (!src) return '';
+  if (src.startsWith('data:') || src.startsWith('http')) return src;
+  return `assets/que-fem/${src}`;
+}
+
+export default function Slider({ fotos }) {
+  const images = fotos && fotos.length > 0 ? fotos : ['foto1.png'];
+  const { current, goNext, goPrev } = useSlider(images.length);
 
   return (
-    <div className="relative max-w-[400px] mx-auto my-6 overflow-hidden rounded-xl shadow-md group">
-      {/* Track */}
-      <div
-        className="slider-inner"
-        style={{ transform: `translateX(-${current * 100}%)` }}
-      >
-        {SLIDER_IMAGES.map((img, i) => (
-          <img key={i} src={`assets/que-fem/${img}`} alt={`Foto ${i + 1}`} />
+    <div style={{ position: 'relative', maxWidth: '400px', margin: '1.5rem auto 0',
+      overflow: 'hidden', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.15)' }}
+      className="slider-wrap"
+    >
+      <div className="slider-track" style={{ transform: `translateX(-${current * 100}%)` }}>
+        {images.map((img, i) => (
+          <img key={i} src={resolveImg(img)} alt={`Foto ${i + 1}`}
+            style={{ width: '100%', aspectRatio: '4/3', objectFit: 'cover', flexShrink: 0 }} />
         ))}
       </div>
-
-      {/* Botons prev/next */}
-      {[
-        { label: '❮', side: 'left-2',  action: goPrev, aria: 'Imatge anterior' },
-        { label: '❯', side: 'right-2', action: goNext, aria: 'Imatge següent'  },
-      ].map(({ label, side, action, aria }) => (
-        <button
-          key={side}
-          aria-label={aria}
-          onClick={action}
-          className={`absolute top-1/2 -translate-y-1/2 ${side} opacity-0 group-hover:opacity-90 
-            bg-[#003366]/80 backdrop-blur text-[#FFD700] text-2xl px-3 py-1 rounded-lg 
-            transition-all duration-200 hover:opacity-100 hover:scale-110 active:scale-95 z-10`}
-        >
-          {label}
-        </button>
-      ))}
+      {images.length > 1 && <>
+        <button className="slider-btn" onClick={goPrev} aria-label="Anterior"
+          style={{ position:'absolute', top:'50%', left:'10px', transform:'translateY(-50%)',
+            border:'none', borderRadius:'8px', background:'rgba(0,51,102,0.8)',
+            backdropFilter:'blur(4px)', color: C.groc, fontSize:'2rem',
+            padding:'0.4rem 0.75rem', cursor:'pointer', zIndex:10 }}>❮</button>
+        <button className="slider-btn" onClick={goNext} aria-label="Següent"
+          style={{ position:'absolute', top:'50%', right:'10px', transform:'translateY(-50%)',
+            border:'none', borderRadius:'8px', background:'rgba(0,51,102,0.8)',
+            backdropFilter:'blur(4px)', color: C.groc, fontSize:'2rem',
+            padding:'0.4rem 0.75rem', cursor:'pointer', zIndex:10 }}>❯</button>
+      </>}
     </div>
   );
 }

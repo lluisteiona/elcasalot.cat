@@ -8,6 +8,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^12.15.0",
+    "gh-pages": "^6.3.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-scripts": "5.0.1",
@@ -17,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -37,10 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.1",
-    "autoprefixer": "^10.5.2",
-    "postcss": "^8.5.15",
-    "tailwindcss": "^4.3.1"
-  }
+  "homepage": "https://elcasalot.cat"
 }
